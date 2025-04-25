@@ -6,7 +6,7 @@ export const siteConfig = {
     ogImage: "https://zakariahossain.dev/og.jpg",
     links: {
         github: "https://github.com/xack20",
-        linkedin: "https://www.linkedin.com/in/zakaria-hossain-foysal/",
+        linkedin: "https://www.linkedin.com/in/zakaria-hossain-b34446160/",
         email: "mailto:zakariahossain20@gmail.com",
     },
     keywords: [

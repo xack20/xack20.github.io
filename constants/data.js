@@ -3,7 +3,7 @@ export const personalData = {
     email: "zakariahossain20@gmail.com",
     phone: "(+88) 01753732016",
     github: "https://github.com/xack20",
-    linkedin: "https://www.linkedin.com/in/zakaria-hossain-foysal/",
+    linkedin: "https://www.linkedin.com/in/zakaria-hossain-b34446160/",
     website: "stopstalk.com",
     location: "Bangladesh",
     title: "Software Engineer",

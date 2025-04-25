@@ -15,7 +15,7 @@ export default function Footer() {
 
     const socialLinks = [
         { name: 'GitHub', href: 'https://github.com/xack20', icon: '/svg/github.svg' },
-        { name: 'LinkedIn', href: 'https://www.linkedin.com/in/zakaria-hossain-foysal/', icon: '/svg/linkedin.svg' },
+        { name: 'LinkedIn', href: 'https://www.linkedin.com/in/zakaria-hossain-b34446160/', icon: '/svg/linkedin.svg' },
         { name: 'Email', href: 'mailto:zakariahossain20@gmail.com', icon: '/svg/mail.svg' },
     ]
 
