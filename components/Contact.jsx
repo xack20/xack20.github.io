@@ -90,7 +90,7 @@ export default function Contact() {
             icon: "/svg/linkedin.svg",
             label: "LinkedIn",
             value: "Connect on LinkedIn",
-            link: "https://www.linkedin.com/in/zakaria-hossain-foysal/"
+            link: "https://www.linkedin.com/in/zakaria-hossain-b34446160/"
         }
     ]
 
