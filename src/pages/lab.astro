@@ -1,0 +1,79 @@
+---
+import Lab from '../components/Lab.astro';
+import LabLookup from '../components/LabLookup.astro';
+import LabScreens from '../components/LabScreens.astro';
+import LabSign from '../components/LabSign.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout breadcrumbs={[{ name: 'Lab', path: '/lab/' }]}
+  title="Lab"
+  description="Four working demos: an approval flow with single-use tokens, a PIN-safe screen matcher, a check for made-up numbers, and offline signing."
+>
+  <header class="page-head">
+    <p class="label">Lab</p>
+    <h1 class="page-title">Try the <b>mechanisms</b>.</h1>
+    <p class="intro">
+      Four small demos of the ideas that keep the systems in my case studies safe. They run in your browser on toy data. Each one
+      mirrors the design, not the production code, and says exactly what is real and what is simplified.
+    </p>
+    <nav class="toc" aria-label="Demos on this page">
+      <a href="#approval">Approval flow</a><a href="#screens">PIN-safe screen matcher</a><a href="#lookup">Lookup check</a><a href="#signing">Offline signing</a>
+    </nav>
+  </header>
+
+  <section class="section section-tight demo-section" id="approval" aria-labelledby="approval-h">
+    <h2 class="sub-h" id="approval-h">1 · The approval flow</h2>
+    <p class="intro">The agent can propose a change. Only a person can approve it, and the approval works once, for that exact change.</p>
+    <Lab />
+    <div class="explain">
+      <div><h3>What's real</h3><p>The token is bound to a real SHA-256 hash of the change, computed with your browser's Web Crypto API. Commit checks the hash again, so changing the limit after approval breaks the match. A token works once; a second commit is rejected.</p></div>
+      <div><h3>What's simplified</h3><p>There's no database or real card, and you play both the agent and the person approving. In the real system they are separate identities, the agent can't reach the approve step at all, and tokens are issued and checked on the server.</p></div>
+      <div><h3>How it maps</h3><p>In KONA's card management system the agent can only save drafts or act as the maker in the bank's maker-checker flow. Writes with no approval step of their own go to an approval ledger, and a person approves them from a card in the portal. <a href="/work/agentic-cms-assistant/">Read the case study →</a></p></div>
+    </div>
+  </section>
+
+  <section class="section section-tight demo-section" id="screens" aria-labelledby="screens-h">
+    <h2 class="sub-h" id="screens-h">2 · A PIN-safe screen matcher</h2>
+    <p class="intro">Ask an invented wallet how to do something, in English, Bangla or Banglish. Try a forgotten PIN, or ask for an OTP.</p>
+    <LabScreens />
+    <div class="explain">
+      <div><h3>What's real</h3><p>The rules mirror the real ones. Someone who forgot or lost their PIN never gets Change PIN, a request for a PIN or OTP gets safety advice and no screen, and a topic the guide doesn't cover beats any partial match. Only screen titles and synonyms count, never the steps. A multi-word synonym needs all its words. Matches are exact, likely or weak, and a weak match never becomes a button.</p></div>
+      <div><h3>What's simplified</h3><p>The wallet, its seven screens, its synonyms and its word lists are invented, and the scoring is simpler: here the safety rules run first, while the real screen finder scores every screen and then applies them. It also keeps an index per platform and app version, runs as a tool server, and the orchestration layer checks weak matches again.</p></div>
+      <div><h3>How it maps</h3><p>This is how KON-AI, the assistant in the Nagad app, sends people to the right screen without ever sending someone who lost their PIN to Change PIN. <a href="/work/kon-ai-nagad/">Read the case study →</a></p></div>
+    </div>
+  </section>
+
+  <section class="section section-tight demo-section" id="lookup" aria-labelledby="lookup-h">
+    <h2 class="sub-h" id="lookup-h">3 · Catching made-up numbers</h2>
+    <p class="intro">A model answered a bank operator. Which of its numbers did a tool actually return?</p>
+    <LabLookup />
+    <div class="explain">
+      <div><h3>What's real</h3><p>The idea is the real one: a number about the bank's records has to come from a tool, and code checks that after the model answers instead of trusting the prompt. Before the check, about 1 in 3 count answers in a 60-question test sample were made up.</p></div>
+      <div><h3>What's simplified</h3><p>The question, the tool results and the answer are invented, and this demo compares each number with what the tools returned. The real check is coarser: when an answer states a number in a turn that called no tool, a quick yes-or-no model call decides whether it's a fact about the records, and if so the agent is asked once to look it up. It runs inside the orchestration service, next to limits on tool calls and repeat-call detection.</p></div>
+      <div><h3>How it maps</h3><p>It's one of the guardrails around the bank assistant, alongside input screening, PII redaction and an eval suite of 2,265 cases. <a href="/work/agent-evals-guardrails/">Read the case study →</a></p></div>
+    </div>
+  </section>
+
+  <section class="section section-tight demo-section" id="signing" aria-labelledby="signing-h">
+    <h2 class="sub-h" id="signing-h">4 · Signing on your own device</h2>
+    <p class="intro">Make a key, sign a payment and send it to a pretend gateway. Then change the amount on the way and send it again.</p>
+    <LabSign />
+    <div class="explain">
+      <div><h3>What's real</h3><p>The key pair is a real ECDSA key on the P-256 curve (also called secp256r1), made by your browser's Web Crypto API. The private key can't be exported, and the gateway checks the signature with the public key alone.</p></div>
+      <div><h3>What's simplified</h3><p>NCP users get a BIP39 HD wallet, and a signed transaction goes on through Hyperledger Fabric endorsement and commit. Here it's a single key pair and a gateway that only verifies.</p></div>
+      <div><h3>How it maps</h3><p>This is the idea behind NCP's signing portal: the gateway never sees a user's private key, so custody stays with the user. <a href="/work/ncp-fabric/">Read the case study →</a></p></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .toc { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 24px; }
+  .toc a { font: 600 14px var(--font-display); color: var(--gold); }
+  .toc a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .demo-section .intro { margin-top: 4px; }
+  .explain { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
+  .explain h3 { font: 600 16px var(--font-display); color: var(--gold); margin-bottom: 6px; }
+  .explain p { color: var(--ink-2); font-size: 15px; }
+  .explain a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 900px) { .explain { grid-template-columns: minmax(0, 1fr); } }
+</style>

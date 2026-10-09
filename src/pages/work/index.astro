@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import WorkCard from '../../components/WorkCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const GROUPS = [
+  { key: 'kona', title: 'At KONA' },
+  { key: 'personal', title: 'Personal and open source' },
+] as const;
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const groups = GROUPS.map((g) => ({ ...g, items: work.filter((entry) => entry.data.group === g.key) }));
+---
+<BaseLayout breadcrumbs={[{ name: 'Work', path: '/work/' }]} title="Work" description="Case studies: agentic AI for banks and a mobile wallet, MCP tool servers, evals, self-hosted LLMs, fund tracing, reporting, a Fabric commerce platform, and personal and open-source work.">
+  <header class="page-head">
+    <p class="label">Work</p>
+    <h1 class="page-title">Case <b>studies</b>.</h1>
+    <p class="intro">
+      Systems I've built or built large parts of, explained in plain language: what the problem was, the decisions that mattered,
+      and what made them hard. Smaller work is on the <a class="inline" href="/projects/">projects</a> page.
+    </p>
+  </header>
+  {groups.map((g) => (
+    <section class="section section-tight" aria-labelledby={`${g.key}-h`}>
+      <h2 class="sub-h" id={`${g.key}-h`}>{g.title}</h2>
+      <div class="work-grid">{g.items.map((entry) => <WorkCard entry={entry} big={entry.data.featured} />)}</div>
+    </section>
+  ))}
+</BaseLayout>
+
+<style>
+  .inline { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+</style>

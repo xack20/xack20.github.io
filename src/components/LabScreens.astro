@@ -1,0 +1,51 @@
+---
+const EXAMPLES = ['taka pathabo kivabe', 'pin vule gechi', 'send me the OTP', 'মোবাইল রিচার্জ করব', 'recharj', 'confirm with your pin'];
+---
+<div class="demo" data-screens>
+  <form class="ask" data-form>
+    <label for="screens-q">Ask the wallet assistant where to go</label>
+    <div class="row">
+      <input id="screens-q" type="text" autocomplete="off" placeholder="e.g. taka pathabo kivabe" disabled />
+      <button type="submit" class="go" disabled>Find</button>
+    </div>
+  </form>
+  <p class="examples">
+    Try:
+    {EXAMPLES.map((e) => <button type="button" class="chip" data-example={e} disabled>{e}</button>)}
+  </p>
+  <div class="result" data-result aria-live="polite"></div>
+  <p class="nojs" data-nojs>
+    This demo needs JavaScript. It matches questions in English, Bangla or Banglish to screens of an invented wallet, refuses to
+    send anyone who forgot their PIN to Change PIN, and answers requests for a PIN or OTP with safety advice only.
+  </p>
+</div>
+
+<script>
+  import '../scripts/lab-screens';
+</script>
+
+<style>
+  .demo { margin-top: 24px; border-radius: 24px; border: 1px solid var(--line); padding: clamp(18px, 4vw, 30px); background: var(--bg-raised); }
+  label { font: 500 14px var(--font-display); color: var(--ink-2); }
+  .row { display: flex; gap: 10px; margin-top: 8px; }
+  input {
+    flex: 1; min-width: 0; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line-strong); background: rgba(0, 0, 0, 0.35);
+    color: var(--ink); font: 400 16px var(--font-body);
+  }
+  .go { padding: 12px 20px; border-radius: 12px; border: none; background: var(--gold); color: var(--on-gold); font: 600 15px var(--font-display); cursor: pointer; }
+  .go:disabled, .chip:disabled { opacity: 0.6; cursor: not-allowed; }
+  .examples { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; color: var(--muted); font-size: 14px; }
+  .chip { border: 1px solid var(--line); background: var(--card); color: var(--gold); border-radius: 999px; padding: 6px 12px; font: 500 13px var(--font-mono); cursor: pointer; }
+  .result { margin-top: 18px; min-height: 64px; }
+  .result :global(.card) { padding: 18px; border-radius: 16px; border: 1px solid var(--line); background: var(--card); }
+  .result :global(.badge) { font: 500 12px var(--font-mono); text-transform: uppercase; letter-spacing: 1px; color: var(--gold); }
+  .result :global(.card h3) { font: 600 20px var(--font-display); margin: 6px 0; }
+  .result :global(.card ol) { padding-left: 20px; color: var(--ink-2); }
+  .result :global(.screen-card) {
+    margin-top: 12px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--gold); background: rgba(232, 196, 120, 0.12);
+    color: var(--ink); font: 600 14px var(--font-display); cursor: pointer;
+  }
+  .result :global(.warn) { border-color: var(--bad); }
+  .result :global(.note) { margin-top: 8px; color: var(--muted); font-size: 14px; }
+  .nojs { margin-top: 12px; color: var(--muted); font-size: 15px; }
+</style>

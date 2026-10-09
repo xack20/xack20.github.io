@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.astro/
+coverage/
+test-results/
+playwright-report/
+.lighthouseci/
+.superpowers/
+cv/*.pdf
+cv/*.log
+.DS_Store
+# Private working notes live in ../portfolio-notes (never publish them)
+docs/
+# Editor/AI tooling config
+.github/instructions/
+# Confidential guard terms (local only; mirrored in the GUARD_CONFIDENTIAL CI secret)
+scripts/guards/confidential.local.txt
+# Approved web-copy replacements quote confidential CV passages (local only)
+scripts/cv/web-replacements.local.json

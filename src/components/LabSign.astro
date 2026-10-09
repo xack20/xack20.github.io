@@ -1,0 +1,48 @@
+---
+const TX = { from: 'wallet-a', to: 'merchant-7', amount: 120 };
+---
+<div class="demo" data-sign>
+  <ol class="steps">
+    <li><button type="button" data-act="key" disabled>1 · Make a key on this device</button> <span class="fp" data-fp></span></li>
+    <li><button type="button" data-act="sign" disabled>2 · Sign the payment</button></li>
+    <li><label><input type="checkbox" data-tamper disabled /> Change the amount on the way to the gateway</label></li>
+    <li><button type="button" data-act="send" disabled>3 · Send it to the gateway</button></li>
+  </ol>
+  <pre class="tx" data-tx>{JSON.stringify(TX)}</pre>
+  <div class="log" data-log role="log" aria-label="What the gateway saw" tabindex="0">
+    <p>// the gateway only ever receives the payment, the signature and the public key</p>
+  </div>
+  <p class="nojs" data-nojs>
+    This demo needs JavaScript. It makes a P-256 (secp256r1) key pair in your browser that can't be exported, signs a toy payment
+    with it, and lets a pretend gateway check the signature with the public key alone. Changing the amount after signing makes the
+    check fail.
+  </p>
+</div>
+
+<script>
+  import '../scripts/lab-sign';
+</script>
+
+<style>
+  .demo { margin-top: 24px; border-radius: 24px; border: 1px solid var(--line); padding: clamp(18px, 4vw, 30px); background: var(--bg-raised); display: grid; gap: 14px; }
+  .steps { list-style: none; display: grid; gap: 10px; }
+  .steps li { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  button {
+    padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); color: var(--ink);
+    font: 500 15px var(--font-display); cursor: pointer;
+  }
+  button:hover:not(:disabled) { border-color: rgba(232, 196, 120, 0.55); }
+  button:disabled, input:disabled { opacity: 0.6; cursor: not-allowed; }
+  label { display: flex; gap: 10px; align-items: center; color: var(--ink-2); cursor: pointer; }
+  input { width: 18px; height: 18px; accent-color: var(--gold); }
+  .fp { font: 500 13px var(--font-mono); color: var(--gold); }
+  .tx { font: 400 13.5px var(--font-mono); color: var(--gold-hi); background: rgba(0, 0, 0, 0.35); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .log {
+    font: 400 13.5px/1.7 var(--font-mono); color: var(--muted); background: rgba(0, 0, 0, 0.35); border: 1px solid var(--line);
+    border-radius: 14px; padding: 16px; min-height: 140px; max-height: 300px; overflow-y: auto; overflow-wrap: anywhere;
+  }
+  .log :global(p + p) { margin-top: 6px; }
+  .log :global(.tone-ok) { color: var(--ok); }
+  .log :global(.tone-bad) { color: var(--bad); }
+  .nojs { color: var(--muted); font-size: 15px; }
+</style>

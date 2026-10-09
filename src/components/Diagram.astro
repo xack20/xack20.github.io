@@ -1,0 +1,77 @@
+---
+import { layoutFlow, type FlowStage, type Orientation } from '../lib/diagram/layout';
+
+interface Props {
+  id: string;
+  title: string;
+  caption: string;
+  stages: readonly FlowStage[];
+}
+
+const { id, title, caption, stages } = Astro.props;
+const ORIENTATIONS: readonly Orientation[] = ['horizontal', 'vertical'];
+const TITLE_BASELINE = 14;
+const LABEL_BASELINE_WITH_NOTE = 30;
+const NOTE_BASELINE = 50;
+const LABEL_CENTER_NUDGE = 5;
+
+const views = ORIENTATIONS.map((orientation) => ({ orientation, key: `${id}-${orientation}`, layout: layoutFlow(stages, orientation) }));
+const summary = stages.map((s) => `${s.title}: ${s.nodes.map((n) => n.label).join(', ')}`).join('. Then ');
+const allNodes = stages.flatMap((s) => s.nodes);
+const mixed = allNodes.some((n) => n.mine) && allNodes.some((n) => !n.mine);
+---
+<figure class="flow" aria-labelledby={`${id}-caption`}>
+  {views.map(({ orientation, key, layout }) => (
+    <svg class={orientation} viewBox={`0 0 ${layout.width} ${layout.height}`} role="img" aria-labelledby={`${key}-t ${key}-d`} xmlns="http://www.w3.org/2000/svg">
+      <title id={`${key}-t`}>How {title} works</title>
+      <desc id={`${key}-d`}>{summary}.</desc>
+      <defs>
+        <marker id={`${key}-arrow`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" class="arrow-head" />
+        </marker>
+      </defs>
+      {layout.stages.map((s) => <text class="stage-title" x={s.x} y={s.y + TITLE_BASELINE}>{s.title}</text>)}
+      {layout.arrows.map((a) => <line class="arrow" x1={a.x1} y1={a.y1} x2={a.x2} y2={a.y2} marker-end={`url(#${key}-arrow)`} />)}
+      {layout.nodes.map((n) => (
+        <g class:list={['node', { mine: n.mine }]}>
+          <rect x={n.x} y={n.y} width={n.w} height={n.h} rx="12" />
+          <text class="node-label" x={n.x + n.w / 2} y={n.y + (n.note ? LABEL_BASELINE_WITH_NOTE : n.h / 2 + LABEL_CENTER_NUDGE)} text-anchor="middle">{n.label}</text>
+          {n.note && <text class="node-note" x={n.x + n.w / 2} y={n.y + NOTE_BASELINE} text-anchor="middle">{n.note}</text>}
+        </g>
+      ))}
+    </svg>
+  ))}
+  <figcaption id={`${id}-caption`}>
+    <span>{caption}</span>
+    {mixed && (
+      <span class="legend">
+        <span><span class="key mine" aria-hidden="true"></span>My part</span>
+        <span><span class="key" aria-hidden="true"></span>Teammates' or existing systems</span>
+      </span>
+    )}
+  </figcaption>
+</figure>
+
+<style>
+  .flow {
+    margin: 48px 0 8px; padding: clamp(12px, 3vw, 28px); border: 1px solid var(--line); border-radius: 20px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(232, 196, 120, 0.07), transparent 65%), var(--bg-raised);
+  }
+  svg { width: 100%; height: auto; }
+  .vertical { display: none; max-width: 380px; margin: 0 auto; }
+  @media (max-width: 899px) {
+    .horizontal { display: none; }
+    .vertical { display: block; }
+  }
+  .stage-title { font: 500 10.5px var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase; fill: var(--gold); }
+  .node rect { fill: rgba(255, 255, 255, 0.03); stroke: var(--line-strong); stroke-width: 1; }
+  .node.mine rect { fill: rgba(232, 196, 120, 0.14); stroke: var(--gold); }
+  .node-label { font: 600 13px var(--font-display); fill: var(--ink); }
+  .node-note { font: 400 11px var(--font-mono); fill: var(--muted); }
+  .arrow { stroke: var(--gold); stroke-width: 1.4; opacity: 0.8; }
+  .arrow-head { fill: var(--gold); }
+  figcaption { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; margin-top: 14px; color: var(--muted); font-size: 15px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; font: 500 12px var(--font-mono); }
+  .key { display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; border-radius: 3px; border: 1px solid var(--line-strong); }
+  .key.mine { background: rgba(232, 196, 120, 0.3); border-color: var(--gold); }
+</style>

@@ -1,0 +1,140 @@
+---
+import Timeline from '../components/Timeline.astro';
+import { CONTESTS, EDUCATION } from '../data/experience';
+import { PATH } from '../data/path';
+import { LINKS, SITE } from '../data/site';
+import { SKILLS } from '../data/skills';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { personNode, profileNode } from '../lib/seo/schema';
+
+const PRINCIPLES = [
+  {
+    title: 'Safety rules live in code, not prompts.',
+    body: "A prompt can be talked around. KON-AI's PIN rules are enforced by the screen finder itself, so a forgotten PIN never leads to the change-PIN screen.",
+    href: '/work/kon-ai-nagad/',
+  },
+  {
+    title: 'Identity comes from the request, never from the model.',
+    body: 'Which bank and which user an agent acts for comes from request headers, so a prompt injection cannot pick a different bank.',
+    href: '/work/agentic-cms-assistant/',
+  },
+  {
+    title: 'The agent proposes; a person approves.',
+    body: 'Writes wait for a person, and an approval is a single-use token bound to the exact change. You can try it in the Lab.',
+    href: '/lab/',
+  },
+  {
+    title: 'Measure before tuning.',
+    body: 'An eval suite of 2,265 cases shows what broke, and I trace each failure back to its root cause.',
+    href: '/work/agent-evals-guardrails/',
+  },
+  {
+    title: 'New data should only ever add.',
+    body: 'In whichllm, live data overlays the curated snapshot, so a fetch can add models but never lose them.',
+    href: '/work/whichllm-scraper-fix/',
+  },
+  {
+    title: 'Pay for the expensive model only where it is needed.',
+    body: 'NID KYC reads every card with OCR and asks a stronger model to re-read only the fields the validators doubt.',
+    href: '/work/nid-kyc/',
+  },
+];
+const ELSEWHERE = [
+  { label: 'GitHub', href: LINKS.github },
+  { label: 'LinkedIn', href: LINKS.linkedin },
+  { label: 'Medium', href: LINKS.medium },
+  { label: 'Codeforces', href: LINKS.codeforces },
+];
+---
+<BaseLayout schema={[profileNode('/about/'), personNode]} breadcrumbs={[{ name: 'About', path: '/about/' }]} title="About" description="Senior software engineer at KONA Software Lab in Dhaka, working on agentic AI for banking and payments.">
+  <header class="page-head">
+    <p class="label">About</p>
+    <h1 class="page-title">I build software where a wrong answer has a <b>cost</b>.</h1>
+  </header>
+
+  <section class="section section-tight" aria-label="Bio">
+    <div class="prose">
+      <p>
+        I'm a senior software engineer at KONA Software Lab in Dhaka, Bangladesh. I've been an engineer for six years, most of
+        them in banking and payments: card platforms for banks, a token-backed commerce platform on Hyperledger Fabric, and now the
+        AI assistants that run on top of them.
+      </p>
+      <p>
+        Right now I work on the agentic AI layer of KONA's card management system. I wrote most of the MCP tool servers the agents
+        work through, the approval flow for writes that had no human check of their own, and the eval suite we test it with. We
+        then took the same stack into the Nagad app as KON-AI, which is integrated and in testing. The models run on our own
+        hardware, so bank data never goes to an outside model API.
+      </p>
+      <p>
+        Before that I was the top contributor to NCP, a Hyperledger Fabric commerce platform that runs for KONA I in Korea, and I
+        worked directly with the Korea team, in English, on requirements, demos and releases. Earlier I did Hyperledger Fabric R&D
+        at BJIT and built React and Node.js web apps.
+      </p>
+      <p>
+        I work mostly in Java and Spring Boot, TypeScript and Node.js, and Python, with some Go. I use Claude Code every day and
+        build small tools around it. I studied Computer Science and Engineering at {EDUCATION.school}, where I also spent a lot of
+        time on competitive programming.
+      </p>
+    </div>
+    <div class="ctas">
+      <a class="btn btn-primary" href={SITE.cvPath} download={SITE.cvFileName}>Download CV</a>
+      <a class="btn btn-ghost" href="/experience/">Full experience</a>
+      <a class="btn btn-ghost" href={LINKS.email}>Email me</a>
+    </div>
+  </section>
+
+  <section class="section section-tight" aria-labelledby="how-h">
+    <h2 class="sub-h" id="how-h">How I work</h2>
+    <ul class="principles">
+      {PRINCIPLES.map((p) => (
+        <li class="reveal">
+          <h3>{p.title}</h3>
+          <p>{p.body}</p>
+          <a href={p.href}>Where it shows →</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section section-tight" aria-labelledby="path-h">
+    <h2 class="sub-h" id="path-h">Path</h2>
+    <Timeline items={PATH} />
+    <a class="more" href="/experience/">Every role in detail →</a>
+  </section>
+
+  <section class="section section-tight" aria-labelledby="skills-h">
+    <h2 class="sub-h" id="skills-h">What I work with</h2>
+    <dl class="skills">
+      {SKILLS.map((g) => <div><dt>{g.group}</dt><dd>{g.items.join(', ')}</dd></div>)}
+    </dl>
+  </section>
+
+  <section class="section section-tight" aria-labelledby="cp-h">
+    <h2 class="sub-h" id="cp-h">Competitive programming</h2>
+    <ul class="plain-list">{CONTESTS.map((c) => <li>{c}</li>)}</ul>
+  </section>
+
+  <section class="section section-tight" aria-labelledby="else-h">
+    <h2 class="sub-h" id="else-h">Elsewhere</h2>
+    <ul class="tags elsewhere">{ELSEWHERE.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .principles { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 20px; }
+  .principles li { padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); display: flex; flex-direction: column; gap: 8px; }
+  .principles h3 { font: 600 18px/1.3 var(--font-display); }
+  .principles p { color: var(--muted); font-size: 15px; }
+  .principles a { margin-top: auto; font: 600 14px var(--font-display); color: var(--gold); }
+  .principles a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .skills { display: grid; margin-top: 16px; }
+  .skills div { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+  dt { font: 600 15px var(--font-display); }
+  dd { color: var(--muted); }
+  .elsewhere { margin-top: 16px; }
+  .elsewhere li { font-size: 14px; padding: 8px 14px; }
+  @media (max-width: 760px) {
+    .principles { grid-template-columns: minmax(0, 1fr); }
+    .skills div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  }
+</style>

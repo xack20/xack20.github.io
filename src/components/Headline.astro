@@ -1,0 +1,51 @@
+---
+import { splitHeadline, type HeadlineSegment } from '../lib/text/splitChars';
+
+interface Props {
+  segments: readonly HeadlineSegment[];
+}
+
+const { text, tokens } = splitHeadline(Astro.props.segments);
+---
+<h1 class="headline">
+  <span class="sr-only">{text}</span>
+  <span aria-hidden="true">
+    {tokens.map((token) => {
+      if (token.kind === 'break') return <br />;
+      if (token.kind === 'space') return ' ';
+      return (
+        <span class="word">
+          {token.chars.map((c) => <span class:list={['ch', `d${c.index}`, { gold: c.gold }]}>{c.char}</span>)}
+        </span>
+      );
+    })}
+  </span>
+</h1>
+
+<style>
+  .headline { font: 300 clamp(42px, 7vw, 92px)/1.02 var(--font-display); letter-spacing: -2.5px; margin: 20px 0 18px; perspective: 600px; }
+  .word { display: inline-block; white-space: nowrap; }
+  .ch { display: inline-block; animation: char-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .ch.gold {
+    font-weight: 600; color: transparent; -webkit-background-clip: text; background-clip: text;
+    background-image: linear-gradient(180deg, var(--gold-hi), var(--gold) 60%, var(--gold-deep));
+  }
+  @keyframes char-in {
+    from { opacity: 0; transform: translateY(40%) rotateX(-70deg); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (forced-colors: active) {
+    .ch.gold { color: CanvasText; background: none; }
+  }
+  /* Delay classes d0…d39 = 0.35s + 0.035s × index (MAX_ANIMATED_CHARS = 40). */
+  .d0{animation-delay:.35s}.d1{animation-delay:.385s}.d2{animation-delay:.42s}.d3{animation-delay:.455s}
+  .d4{animation-delay:.49s}.d5{animation-delay:.525s}.d6{animation-delay:.56s}.d7{animation-delay:.595s}
+  .d8{animation-delay:.63s}.d9{animation-delay:.665s}.d10{animation-delay:.7s}.d11{animation-delay:.735s}
+  .d12{animation-delay:.77s}.d13{animation-delay:.805s}.d14{animation-delay:.84s}.d15{animation-delay:.875s}
+  .d16{animation-delay:.91s}.d17{animation-delay:.945s}.d18{animation-delay:.98s}.d19{animation-delay:1.015s}
+  .d20{animation-delay:1.05s}.d21{animation-delay:1.085s}.d22{animation-delay:1.12s}.d23{animation-delay:1.155s}
+  .d24{animation-delay:1.19s}.d25{animation-delay:1.225s}.d26{animation-delay:1.26s}.d27{animation-delay:1.295s}
+  .d28{animation-delay:1.33s}.d29{animation-delay:1.365s}.d30{animation-delay:1.4s}.d31{animation-delay:1.435s}
+  .d32{animation-delay:1.47s}.d33{animation-delay:1.505s}.d34{animation-delay:1.54s}.d35{animation-delay:1.575s}
+  .d36{animation-delay:1.61s}.d37{animation-delay:1.645s}.d38{animation-delay:1.68s}.d39{animation-delay:1.715s}
+</style>

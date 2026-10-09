@@ -1,0 +1,54 @@
+---
+import { NAV, SITE } from '../data/site';
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string): boolean => !href.includes('#') && path.startsWith(href);
+---
+<header class="top">
+  <a class="logo" href="/">{SITE.shortName}</a>
+  <nav class="links" aria-label="Main">
+    {NAV.map((item) => <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>)}
+  </nav>
+  <a class="btn btn-ghost cv" href={SITE.cvPath} download={SITE.cvFileName}>Download CV</a>
+  <details class="menu">
+    <summary>Menu</summary>
+    <nav aria-label="Mobile">
+      {NAV.map((item) => <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>)}
+      <a href={SITE.cvPath} download={SITE.cvFileName}>Download CV</a>
+    </nav>
+  </details>
+</header>
+
+<script>
+  import '../scripts/menu';
+</script>
+
+<style>
+  .top {
+    position: fixed; inset: 0 0 auto 0; z-index: 40; height: var(--nav-h); display: flex; align-items: center;
+    justify-content: space-between; gap: 16px; padding: 0 var(--gutter);
+    background: linear-gradient(180deg, rgba(7, 10, 20, 0.9), rgba(7, 10, 20, 0)); backdrop-filter: blur(6px);
+  }
+  .logo { font: 600 16px var(--font-display); letter-spacing: 0.5px; }
+  .links { display: flex; gap: 24px; font: 500 14px var(--font-display); color: var(--muted); }
+  .links a:hover, .links a[aria-current='page'] { color: var(--ink); }
+  .links a[aria-current='page'] { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 6px; }
+  .cv { padding: 9px 16px; font-size: 14px; }
+  .menu { display: none; position: relative; }
+  .menu summary {
+    list-style: none; cursor: pointer; font: 600 14px var(--font-display); border: 1px solid var(--line-strong);
+    padding: 9px 16px; border-radius: 999px;
+  }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu nav {
+    position: absolute; right: 0; top: calc(100% + 10px); display: flex; flex-direction: column; gap: 4px; min-width: 210px;
+    padding: 10px; border-radius: 16px; border: 1px solid var(--line); background: rgba(10, 16, 32, 0.97);
+  }
+  .menu nav a { padding: 10px 12px; border-radius: 10px; font: 500 15px var(--font-display); }
+  .menu nav a:hover, .menu nav a[aria-current='page'] { background: var(--card); }
+  /* Seven sections plus the CV button need about 1,040px; below that the Menu disclosure takes over. */
+  @media (max-width: 1100px) {
+    .links, .cv { display: none; }
+    .menu { display: block; }
+  }
+</style>

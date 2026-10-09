@@ -1,0 +1,26 @@
+---
+import WritingGrid from '../components/WritingGrid.astro';
+import { LINKS } from '../data/site';
+import { WRITING } from '../data/writing';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const articles = WRITING.filter((w) => w.kind === 'article');
+const openSource = WRITING.filter((w) => w.kind === 'oss');
+---
+<BaseLayout breadcrumbs={[{ name: 'Writing', path: '/writing/' }]} title="Writing and open source" description="Articles on Medium and open-source contributions by Zakaria Hossain Foysal.">
+  <header class="page-head">
+    <p class="label">Writing & open source</p>
+    <h1 class="page-title">Things I've <b>shared</b>.</h1>
+    <p class="intro">Articles I've written and open-source work I've contributed.</p>
+  </header>
+  <section class="section section-tight" aria-labelledby="articles-h">
+    <h2 class="sub-h" id="articles-h">Articles</h2>
+    <WritingGrid items={articles} columns={2} />
+  </section>
+  <section class="section section-tight" aria-labelledby="oss-h">
+    <h2 class="sub-h" id="oss-h">Open source</h2>
+    <WritingGrid items={openSource} columns={2} />
+    <a class="more" href="/projects/">More projects →</a>
+    <a class="more more-2" href={LINKS.github}>GitHub →</a>
+  </section>
+</BaseLayout>

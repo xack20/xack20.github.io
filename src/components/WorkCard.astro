@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+  big?: boolean;
+}
+
+const { entry, big = false } = Astro.props;
+const { card, summary, meta } = entry.data;
+---
+<a class:list={['wcard', 'reveal', { big }]} href={`/work/${entry.id}/`} data-glow>
+  <span class="glow" aria-hidden="true"></span>
+  <span class="meta">{meta}</span>
+  <h3>{card}</h3>
+  <p>{summary}</p>
+  <span class="go" aria-hidden="true">Read the case study →</span>
+  {big && (
+    <svg class="viz" viewBox="0 0 200 200" aria-hidden="true">
+      <g fill="none" stroke="#e8c478" stroke-width="1">
+        <circle cx="100" cy="100" r="80" opacity=".3" />
+        <circle cx="100" cy="100" r="50" opacity=".5" />
+        <circle cx="100" cy="20" r="5" fill="#e8c478" />
+        <circle cx="170" cy="130" r="5" fill="#e8c478" />
+        <circle cx="35" cy="140" r="5" fill="#e8c478" />
+        <path d="M100 20 L170 130 L35 140Z" opacity=".6" />
+      </g>
+    </svg>
+  )}
+</a>
+
+<script>
+  import '../scripts/glow';
+</script>
+
+<style>
+  .wcard {
+    position: relative; display: flex; flex-direction: column; gap: 10px; min-height: 280px; padding: 30px; border-radius: 22px;
+    overflow: hidden; border: 1px solid var(--line); background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+    transition: transform 0.5s var(--ease), border-color 0.4s;
+  }
+  .wcard:hover, .wcard:focus-visible { transform: translateY(-6px); border-color: rgba(232, 196, 120, 0.5); }
+  .glow {
+    position: absolute; left: 0; top: 0; width: 420px; height: 420px; margin: -210px 0 0 -210px; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(232, 196, 120, 0.18), transparent 60%);
+    transform: translate(var(--mx, 50%), var(--my, 50%)); opacity: 0; transition: opacity 0.3s;
+  }
+  .wcard:hover .glow { opacity: 1; }
+  .meta { font: 500 12px var(--font-mono); color: var(--gold); letter-spacing: 0.5px; text-transform: uppercase; }
+  h3 { font: 600 clamp(22px, 2.4vw, 28px)/1.15 var(--font-display); letter-spacing: -0.5px; }
+  p { color: var(--muted); font-size: 15.5px; max-width: 520px; }
+  .go { margin-top: auto; font: 600 14px var(--font-display); color: var(--gold); }
+  .viz { position: absolute; right: -30px; bottom: -30px; width: 220px; height: 220px; opacity: 0.55; }
+  .big { grid-column: 1 / -1; min-height: 320px; }
+  @media (max-width: 900px) {
+    .big { grid-column: auto; }
+    .viz { display: none; }
+  }
+</style>

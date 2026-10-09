@@ -1,0 +1,43 @@
+---
+const ANSWER = 'The customer has 3 active cards, a daily limit of 50,000 BDT and 12 declined payments this week.';
+const TOOLS = [
+  { value: '3', label: 'Card lookup returned: 3 active cards' },
+  { value: '50000', label: 'Limit lookup returned: daily limit 50,000 BDT' },
+];
+---
+<div class="demo" data-lookup>
+  <p class="q"><span class="badge">Operator asks</span> How many active cards does this customer have, and what is their daily limit?</p>
+  <fieldset>
+    <legend>Tool calls the agent made (untick one to see what changes)</legend>
+    {TOOLS.map((t) => (
+      <label><input type="checkbox" data-tool={t.value} checked disabled /> {t.label}</label>
+    ))}
+  </fieldset>
+  <p class="badge">Model answers</p>
+  <p class="answer" data-answer>{ANSWER}</p>
+  <p class="verdict" data-verdict aria-live="polite"></p>
+  <p class="nojs" data-nojs>
+    This demo needs JavaScript. It highlights every number in the answer that no tool call returned. Here, "12 declined payments"
+    has nothing behind it, so the check flags it.
+  </p>
+</div>
+
+<script>
+  import '../scripts/lab-lookup';
+</script>
+
+<style>
+  .demo { margin-top: 24px; border-radius: 24px; border: 1px solid var(--line); padding: clamp(18px, 4vw, 30px); background: var(--bg-raised); display: grid; gap: 14px; }
+  .badge { font: 500 12px var(--font-mono); text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-right: 8px; }
+  .q { color: var(--ink-2); }
+  fieldset { border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; display: grid; gap: 8px; }
+  legend { padding: 0 6px; color: var(--muted); font-size: 14px; }
+  label { display: flex; gap: 10px; align-items: center; color: var(--ink-2); font: 400 15px var(--font-body); cursor: pointer; }
+  input { width: 18px; height: 18px; accent-color: var(--gold); }
+  .answer { font: 400 17px/1.7 var(--font-body); padding: 16px; border-radius: 14px; background: rgba(0, 0, 0, 0.35); border: 1px solid var(--line); }
+  .answer :global(mark) { color: inherit; padding: 1px 4px; border-radius: 6px; }
+  .answer :global(mark.backed) { background: rgba(94, 230, 160, 0.16); outline: 1px solid rgba(94, 230, 160, 0.5); }
+  .answer :global(mark.unbacked) { background: rgba(255, 122, 107, 0.18); outline: 1px solid var(--bad); }
+  .verdict { color: var(--muted); font-size: 15px; }
+  .nojs { color: var(--muted); font-size: 15px; }
+</style>

@@ -1,0 +1,36 @@
+---
+import { PILLARS } from '../data/home';
+---
+<ul class="pillars">
+  {PILLARS.map((p) => (
+    <li class="pillar reveal">
+      <span class="n" aria-hidden="true">{p.n}</span>
+      <h3>{p.title}</h3>
+      <p>{p.body}</p>
+      <ul class="tags" aria-label={`${p.title} tools`}>{p.tags.map((t) => <li>{t}</li>)}</ul>
+      <p class="deep">{p.links.map((l) => <a href={l.href}>{l.label} →</a>)}</p>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 44px; list-style: none; }
+  .pillar { position: relative; isolation: isolate; overflow: hidden; padding: 28px; border-radius: 20px; background: var(--line); }
+  /* A rotating conic light under an opaque face: only the 1px ring shows, and only transform animates. */
+  .pillar::before {
+    content: ''; position: absolute; z-index: -2; left: 50%; top: 50%; width: 220%; aspect-ratio: 1; translate: -50% -50%;
+    background: conic-gradient(from 0deg, transparent 0 70%, var(--gold) 80%, transparent 90%); animation: sweep 6s linear infinite;
+  }
+  .pillar::after { content: ''; position: absolute; z-index: -1; inset: 1px; border-radius: 19px; background: var(--surface); }
+  @keyframes sweep { to { rotate: 360deg; } }
+  .n { font: 600 13px var(--font-mono); color: var(--gold); }
+  h3 { font: 600 22px var(--font-display); margin: 14px 0 10px; }
+  p { color: var(--muted); font-size: 15.5px; }
+  .tags { margin-top: 16px; }
+  .deep { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 16px; }
+  .deep a { font: 600 14px var(--font-display); color: var(--gold); }
+  .deep a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 900px) {
+    .pillars { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

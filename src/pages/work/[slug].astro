@@ -1,0 +1,97 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Diagram from '../../components/Diagram.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { articleNode, personNode } from '../../lib/seo/schema';
+
+export async function getStaticPaths() {
+  const entries = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+  return entries.map((entry, i) => ({ params: { slug: entry.id }, props: { entry, next: entries[(i + 1) % entries.length] } }));
+}
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+  next: CollectionEntry<'work'>;
+}
+
+const { entry, next } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+const facts = [
+  { term: 'Company', value: data.org },
+  ...(data.client ? [{ term: 'Client', value: data.client }] : []),
+  { term: 'When', value: data.years },
+  { term: 'Status', value: data.status },
+];
+---
+<BaseLayout
+  title={data.title}
+  description={data.summary}
+  type="article"
+  schema={[articleNode({ title: data.title, description: data.summary, path: `/work/${entry.id}/`, published: data.published }), personNode]}
+  breadcrumbs={[{ name: 'Work', path: '/work/' }, { name: data.card, path: `/work/${entry.id}/` }]}
+>
+  <article>
+    <header class="page-head">
+      <p class="label"><a href="/work/">Work</a> · {data.meta}</p>
+      <h1 class="page-title">{data.title}</h1>
+      <p class="outcome">{data.outcome}</p>
+      <dl class="facts">
+        {facts.map((f) => <div><dt>{f.term}</dt><dd>{f.value}</dd></div>)}
+        <div class="role"><dt>My part</dt><dd>{data.role}</dd></div>
+      </dl>
+      <section class="plain" aria-labelledby="plain-h">
+        <h2 id="plain-h">In plain terms</h2>
+        <p>{data.plain}</p>
+      </section>
+    </header>
+    <div class="body">
+      <Diagram id={entry.id} title={data.card} caption={data.diagram.caption} stages={data.diagram.stages} />
+      <div class="prose"><Content /></div>
+      <section class="extra" aria-labelledby="stack-h">
+        <h2 id="stack-h">Stack</h2>
+        <ul class="tags">{data.stack.map((s) => <li>{s}</li>)}</ul>
+      </section>
+      {data.links.length > 0 && (
+        <section class="extra" aria-labelledby="links-h">
+          <h2 id="links-h">Links</h2>
+          <ul class="plain-list">{data.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+        </section>
+      )}
+      <nav class="next" aria-label="Next case study">
+        <span class="label">Next</span>
+        <a href={`/work/${next.id}/`}>{next.data.card} →</a>
+      </nav>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .outcome { font-size: clamp(18px, 2vw, 21px); color: var(--ink-2); max-width: 760px; }
+  .facts {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 40px; padding: 24px;
+    border: 1px solid var(--line); border-radius: 18px; background: var(--card);
+  }
+  dt { font: 500 11px var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
+  dd { color: var(--ink-2); font-size: 15px; margin-top: 4px; }
+  .role { grid-column: 1 / -1; }
+  .plain {
+    margin-top: 28px; padding: 22px 24px; max-width: 820px; border-left: 2px solid var(--gold); border-radius: 0 14px 14px 0;
+    background: linear-gradient(90deg, rgba(232, 196, 120, 0.08), transparent);
+  }
+  .plain h2 { font: 500 12px var(--font-display); letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .plain p { font-size: 18px; color: var(--ink); }
+  .body { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter) 80px; }
+  .extra { margin-top: 48px; }
+  .extra h2 { font: 600 clamp(22px, 2.6vw, 28px)/1.2 var(--font-display); margin-bottom: 14px; }
+  .extra a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+  .next { margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+  .next a { font: 600 clamp(20px, 2.4vw, 26px) var(--font-display); }
+  .next a:hover { color: var(--gold); }
+  @media (max-width: 900px) {
+    .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 520px) {
+    .facts { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

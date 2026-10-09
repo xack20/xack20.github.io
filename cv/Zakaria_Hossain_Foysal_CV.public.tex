@@ -1,0 +1,209 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{iftex}
+\ifPDFTeX
+  \input{glyphtounicode}
+\fi
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Makes the PDF text layer extractable by ATS parsers. Do not remove.
+% pdfTeX only; XeTeX (tectonic) writes Unicode text natively.
+\ifPDFTeX
+  \pdfgentounicode=1
+\fi
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{\item\small{{#1 \vspace{-2pt}}}}
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+\newcommand{\resumeProjectHeading}[2]{
+  \item
+  \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+    \small#1 & #2 \\
+  \end{tabular*}\vspace{-7pt}
+}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.2in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in,label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+%-------------------------------------------
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Zakaria Hossain Foysal} \\ \vspace{2pt}
+    \small Senior Software Engineer \\ \vspace{3pt}
+    \small Dhaka, Bangladesh $|$
+    \href{mailto:zakariahossain20@gmail.com}{\underline{zakariahossain20@gmail.com}} \\ \vspace{2pt}
+    \small \href{https://www.linkedin.com/in/zakaria-hossain-b34446160}{\underline{linkedin.com/in/zakaria-hossain-b34446160}} $|$
+    \href{https://github.com/xack20}{\underline{github.com/xack20}}
+\end{center}
+
+%----------SUMMARY----------
+\section{Summary}
+\small{
+Senior software engineer in Dhaka with six years in banking and payments. I work on the agentic AI
+layer of KONA's card management system, where I wrote most of the MCP tool servers the agents work through,
+the approval flow that keeps every write behind a human, and the eval suite we test it with. Before that I was
+the top contributor to NCP, a Hyperledger Fabric commerce platform that runs for KONA I in Korea. I work mostly
+in Java/Spring Boot, TypeScript/Node.js and Python, with some Go, and I use Claude Code every day.
+}
+\vspace{-6pt}
+
+%----------EXPERIENCE----------
+\section{Experience}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{KONA Software Lab Ltd.}{\emph{Dhaka, Bangladesh}}
+{Senior Software Engineer}{\emph{Jan. 2025 -- Present}}
+\resumeItemListStart
+  \resumeItem{Engineer on the agentic AI layer of KONA's card management system. Bank operators ask about products, cards and transactions in English or Bangla, and the assistant finds the right screen or prepares the change for them.}
+  \resumeItem{Designed and wrote the MCP tool servers the agents work through: 31 Java/Spring Boot tools plus an action catalog for rarer operations, a Node.js screen finder over the portal's 156 screens, and around 700 tests.}
+  \resumeItem{Made writes safe by design. The agent can only save drafts or act as the maker in the bank's maker-checker flow, and anything else waits for a person to approve it. The approval ledger behind that, with single-use commit tokens, is mine (Spring WebFlux, PostgreSQL).}
+  \resumeItem{In the Python orchestration service (FastAPI, LangGraph) I added PII redaction on the output stream, input screening, tool-call limits, and a check for numbers the model states without looking them up. Before that check, about 1 in 3 count answers in a 60-question sample were made up.}
+  \resumeItem{Wrote the eval suite for the whole stack: 57 suites, 2,265 cases. The latest run passed \textbf{98.7\%} of guard checks, and I traced every failure to its root cause.}
+  \resumeItem{Took the same stack to the Nagad app as KON-AI, an in-app assistant now integrated and in testing. Split prompts, config and builds into a base plus per-product profiles so one codebase serves both. Wrote the app screen finder (Java, Spring Boot), which matches Bangla, English and Banglish questions to app screens per platform and app version, enforces PIN-safety rules in code and passes a 368-question corpus test, and the screen-card event that drives the in-app button. A judge-backed guard cut wrongly blocked questions from 10 of 146 to none.}
+  \resumeItem{Set up our self-hosted LLM stack on an NVIDIA DGX Spark: vLLM serving a 27B Qwen model, embeddings and a reranker behind a LiteLLM gateway. Load-tested it (about 205 tokens/s across 16 streams, 453 of 453 requests at 1.5 req/s) and moved the agent services onto it.}
+  \resumeItem{Built the RAG system our card personalization engineers use as their daily reference, on a customised RAGFlow over 54 card specifications (EMV, Visa, Mastercard M/Chip and others).}
+  \resumeItem{Built the Issuer Dashboard API (7 endpoints) on our Oracle star-schema warehouse and made all 15 cardholder reports tenant-aware. Per-table load tracking I added to the Spring Batch ETL caught a dimension that had been silently loading nothing.}
+  \resumeItem{Built KONA Tag Explorer, backend and frontend, with one teammate: fund tracing for a KRW-pegged card system, where every transaction becomes a UTXO with a lineage tag. Wrote the React explorer, most of its APIs (Java 21, Spring Boot, PostgreSQL), payment-depth contribution scoring, and month-end UTXO consolidation with idempotent chunked merges and a no-restart toggle. In production.}
+  \resumeItem{Co-built KONA Identity Provider on Spring Authorization Server, with passkey (WebAuthn) login and Okta federation, and wrote its React passkey client.}
+\resumeItemListEnd
+
+\resumeSubheading
+{KONA Software Lab Ltd.}{\emph{Dhaka, Bangladesh}}
+{Software Engineer, Level 2}{\emph{Jul. 2022 -- Dec. 2024}}
+\resumeItemListStart
+  \resumeItem{Top contributor to NCP (New Commerce Platform), KONA's token-backed commerce platform on Hyperledger Fabric, live for KONA I in Korea on AWS EC2. Worked directly with the Korea team, in English, on requirements, demos and releases.}
+  \resumeItem{Owned the Token Management gateway between the platform and Fabric (Node.js, Express): offline transaction signing through endorsement and commit, X.509 identities through an HSM crypto suite, multi-tenancy across chaincodes, and event callbacks to merchant systems.}
+  \resumeItem{Made it hold up under failure and load. Failed RabbitMQ publishes go to a retry table and replay once the broker is back, and a Redis-backed Socket.IO adapter lets several gateway instances run behind a load balancer.}
+  \resumeItem{Built the React signing portal, where users generate BIP39/secp256r1 HD-wallet keys and sign transactions locally.}
+  \resumeItem{Wrote most of the Fabric operations scripts (chaincode upgrades, certificate revocation, block timeout tuning) and benchmarked minting with Hyperledger Caliper: 5,000 transactions, no failures, about 150--170 TPS.}
+  \resumeItem{Worked on escrow across the stack: the gateway's trade, redeem, refund and multilateral settlement flows, and escrow deposit and release in the ERC-1155 Go chaincode. Also added token details, paginated history and a permission matrix to the chaincode, and fixed endorsement failures under concurrent transactions.}
+  \resumeItem{Worked on KONA-SCAN, NCP's block explorer (Go/Gin backend, Next.js frontend), including its block event listener and the re-mint and direct-transfer balance views.}
+  \resumeItem{Built out our API and UI test automation (Java, TestNG, RestAssured, Selenium, Allure) around a shared API library and data-driven request variations, with results synced to TestRail and posted to Microsoft Teams.}
+\resumeItemListEnd
+
+\resumeSubheading
+{BJIT Ltd.}{\emph{Dhaka, Bangladesh}}
+{Software Engineer}{\emph{Apr. 2021 -- Jun. 2022}}
+\resumeItemListStart
+  \resumeItem{Hyperledger Fabric R\&D in Go and Spring Boot, and DeliveryExpress, an Ethereum courier dApp (React, Next.js, Node.js, Solidity).}
+\resumeItemListEnd
+
+\resumeSubheading
+{iTech Soft Solutions \& Semicolon IT Solutions}{\emph{Remote / Dhaka}}
+{Web Developer}{\emph{Jul. 2020 -- Mar. 2021}}
+\resumeItemListStart
+  \resumeItem{React and Node.js web apps on PostgreSQL and MongoDB.}
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects}
+\resumeSubHeadingListStart
+
+\resumeProjectHeading
+{\textbf{NID KYC Extraction} $|$ \emph{TypeScript, Express, Google Cloud Vision, Gemini, Zod}}{\emph{Solo, 2026}}
+\resumeItemListStart
+  \resumeItem{Reads KYC fields from Bangladeshi NID cards in Bangla and English. Cloud Vision does the OCR and a stronger Gemini model re-reads only the doubtful fields from image crops, so a card costs 0.21--4.76 BDT. Cut double-sided cards from 54 s to 32 s.}
+\resumeItemListEnd
+
+\resumeProjectHeading
+{\textbf{LMCanvas (fork)} $|$ \emph{TypeScript, React 19, Electron} $|$ \href{https://github.com/xack20/local-lmcanvas}{\underline{GitHub}}}{\emph{2026}}
+\resumeItemListStart
+  \resumeItem{A branching canvas for Claude Code chats. Added on top of the original: context-size tracking, one-click and automatic compaction, retrying an oversized history with less context instead of failing, a model choice per question, and private access from my other machines over Tailscale.}
+\resumeItemListEnd
+
+\resumeProjectHeading
+{\textbf{Hisaab} $|$ \emph{Kotlin Multiplatform (Android, iOS)}}{\emph{In progress}}
+\resumeItemListStart
+  \resumeItem{A privacy-first AI finance guide for people in Bangladesh. Early stage.}
+\resumeItemListEnd
+
+\resumeProjectHeading
+{\textbf{Open source}}{}
+\resumeItemListStart
+  \resumeItem{Merged PR to \href{https://github.com/Andyyyy64/whichllm/pull/97}{\underline{whichllm}} (6.7k stars). Its benchmark scraper had silently fallen back to a stale snapshot after the source moved to the Next.js App Router; I parsed the RSC stream and made live data overlay the curated fallback, so coverage grew to 78 models instead of shrinking to 43. The maintainer chose it over a competing fix for that reason. Also two small merged fixes in Hyperledger fabric-samples.}
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \small{\item{
+  \textbf{Languages:} Java, TypeScript/JavaScript, Python, Go, SQL, Solidity, C++ \\ \vspace{2pt}
+  \textbf{Backend:} Spring Boot (WebFlux, Batch, Authorization Server), Node.js/Express, FastAPI, RabbitMQ, Socket.IO \\ \vspace{2pt}
+  \textbf{AI / LLM:} MCP (Java and TypeScript SDKs), LangGraph, vLLM, LiteLLM, Qwen, RAGFlow, embeddings and rerankers,
+  Gemini, Google Cloud Vision, LLM evals and guardrails \\ \vspace{2pt}
+  \textbf{Frontend:} React, Angular, Next.js \\ \vspace{2pt}
+  \textbf{Data:} Oracle (star schema), PostgreSQL, Redis, MongoDB, MinIO, JasperReports \\ \vspace{2pt}
+  \textbf{Security \& Blockchain:} OAuth2/OIDC, WebAuthn passkeys, Okta, HSM (PKCS\#11), X.509, Hyperledger Fabric \\ \vspace{2pt}
+  \textbf{DevOps \& Testing:} Docker, AWS EC2, Jenkins, PM2, Gradle, Maven, JUnit, WireMock, pytest, Jest, TestNG, Selenium, Hyperledger Caliper \\ \vspace{2pt}
+  \textbf{AI coding tools:} Claude Code (daily), earlier Google Antigravity and GitHub Copilot
+  }}
+\end{itemize}
+
+%-----------EDUCATION-----------
+\section{Education}
+\resumeSubHeadingListStart
+  \resumeSubheading
+    {Daffodil International University}{\emph{CGPA: 3.74/4.00}}
+    {B.Sc. in Computer Science and Engineering. Thesis: deep learning on financial transaction data}{\emph{2017 -- 2021}}
+\resumeSubHeadingListEnd
+
+%-----------ACHIEVEMENTS-----------
+\section{Competitive Programming \& Activities}
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \small{\item{
+  \href{https://codeforces.com/profile/badTouch}{\underline{Codeforces}}: 800+ problems solved, max rating 1414 (Specialist). \\ \vspace{2pt}
+  ACM ICPC Dhaka Regional 2018: 96th. DIU Intra-University Programming Contest 2019: 1st place. Executive, DIU Computer \& Programming Club (2017--2019).
+  }}
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,67 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Contact from '../components/Contact.astro';
+import Hero from '../components/Hero.astro';
+import Lab from '../components/Lab.astro';
+import Pillars from '../components/Pillars.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Timeline from '../components/Timeline.astro';
+import WorkCard from '../components/WorkCard.astro';
+import WritingGrid from '../components/WritingGrid.astro';
+import { HOME_WORK } from '../data/home';
+import { PATH } from '../data/path';
+import { WRITING } from '../data/writing';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { personNode, websiteNode } from '../lib/seo/schema';
+
+const all = await getCollection('work');
+const work = HOME_WORK.map((slug) => all.find((entry) => entry.id === slug)).filter((entry): entry is CollectionEntry<'work'> => entry !== undefined);
+---
+<BaseLayout schema={[personNode, websiteNode]}>
+  <Hero />
+
+  <section class="section" id="what" aria-labelledby="what-h">
+    <SectionHeader
+      label="What I build"
+      headingId="what-h"
+      intro="Most of my work sits where a wrong answer has a cost: card management for banks, Bangladesh's Nagad mobile wallet, and ledgers that have to add up."
+    >
+      AI that works with real money, <b>without</b> being trusted blindly.
+    </SectionHeader>
+    <Pillars />
+  </section>
+
+  <section class="section" id="work" aria-labelledby="work-h">
+    <SectionHeader label="Selected work" headingId="work-h">Things I've <b>built</b>.</SectionHeader>
+    <div class="work-grid">{work.map((entry) => <WorkCard entry={entry} big={entry.data.featured} />)}</div>
+    <a class="more reveal" href="/work/">All case studies →</a>
+    <a class="more more-2 reveal" href="/projects/">Smaller projects →</a>
+  </section>
+
+  <section class="section" id="lab" aria-labelledby="lab-h">
+    <SectionHeader
+      label="Lab"
+      headingId="lab-h"
+      intro="A small version of the approval flow, running in your browser on fake data. The agent can propose; only a person can approve; a token works once."
+    >
+      Don't take my word for it. <b>Try</b> the mechanism.
+    </SectionHeader>
+    <Lab />
+    <a class="more reveal" href="/lab/">How this maps to the real system →</a>
+  </section>
+
+  <section class="section" id="path" aria-labelledby="path-h">
+    <SectionHeader label="Path" headingId="path-h">From competitive programming to <b>agentic AI</b>.</SectionHeader>
+    <Timeline items={PATH.filter((p) => p.home)} />
+    <a class="more reveal" href="/experience/">Full experience →</a>
+    <a class="more more-2 reveal" href="/about/">More about me →</a>
+  </section>
+
+  <section class="section" id="writing" aria-labelledby="writing-h">
+    <SectionHeader label="Open source & writing" headingId="writing-h">Things I've <b>shared</b>.</SectionHeader>
+    <WritingGrid items={WRITING.filter((w) => w.home)} short />
+    <a class="more reveal" href="/writing/">All writing and open source →</a>
+  </section>
+
+  <Contact />
+</BaseLayout>

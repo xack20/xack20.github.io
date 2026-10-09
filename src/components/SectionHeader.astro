@@ -1,0 +1,12 @@
+---
+interface Props {
+  label: string;
+  headingId: string;
+  intro?: string;
+}
+
+const { label, headingId, intro } = Astro.props;
+---
+<p class="label reveal">{label}</p>
+<h2 class="reveal" id={headingId}><slot /></h2>
+{intro && <p class="intro reveal">{intro}</p>}

@@ -1,0 +1,68 @@
+---
+import { SITE } from '../data/site';
+import Headline from './Headline.astro';
+
+const HEADLINE = [{ text: 'Engineering' }, { text: 'trust', gold: true, breakAfter: true }, { text: 'into AI agents' }] as const;
+---
+<section class="hero" aria-label="Introduction">
+  <canvas data-constellation aria-hidden="true"></canvas>
+  <div class="orbit o1" aria-hidden="true"><span>Agentic AI · MCP</span><span class="bottom">Payments</span></div>
+  <div class="orbit o2" aria-hidden="true"><span class="left">Self-hosted LLMs</span><span class="right">Blockchain</span></div>
+  <div class="center">
+    <p class="kicker">{SITE.name}</p>
+    <Headline segments={HEADLINE} />
+    <p class="lede">{SITE.description}</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#work">Explore my work</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+  <p class="scroll" aria-hidden="true">Scroll</p>
+</section>
+
+<script>
+  import '../scripts/constellation';
+</script>
+
+<style>
+  .hero {
+    position: relative; height: 100svh; min-height: 640px; overflow: hidden;
+    background: radial-gradient(ellipse at 50% 40%, var(--bg-glow) 0%, var(--bg) 70%);
+  }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .orbit { position: absolute; left: 50%; top: 50%; translate: -50% -50%; aspect-ratio: 1; border: 1px solid var(--line); border-radius: 50%; }
+  .o1 { width: min(560px, 92vw); animation: spin 70s linear infinite; }
+  .o2 { width: min(820px, 150vw); animation: spin 110s linear infinite reverse; }
+  .orbit span {
+    position: absolute; top: 0; left: 50%; translate: -50% -50%; padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+    font: 500 12px var(--font-display); color: var(--gold); background: #0b1224; border: 1px solid rgba(232, 196, 120, 0.4);
+  }
+  .orbit span.bottom { top: 100%; }
+  .o2 span.left { top: 50%; left: 0; }
+  .o2 span.right { top: 50%; left: 100%; }
+  @keyframes spin { to { rotate: 360deg; } }
+  .center {
+    position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: var(--nav-h) var(--gutter) 0; pointer-events: none;
+  }
+  .kicker { font: 500 13px var(--font-display); letter-spacing: 4px; color: var(--gold); text-transform: uppercase; animation: fade-up 1s 0.2s both; }
+  .lede { max-width: 640px; font-size: 18px; color: var(--muted); animation: fade-up 1s 1.6s both; }
+  .hero-ctas { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; pointer-events: auto; animation: fade-up 1s 1.8s both; }
+  .scroll { position: absolute; bottom: 28px; left: 50%; translate: -50% 0; z-index: 2; font: 500 12px var(--font-display); letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+  .scroll::after {
+    content: ''; display: block; width: 1px; height: 38px; margin: 10px auto 0; transform-origin: top;
+    background: linear-gradient(var(--gold), transparent); animation: drip 2.4s var(--ease) infinite;
+  }
+  @keyframes drip {
+    0% { transform: scaleY(0); opacity: 1; }
+    60% { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(1); opacity: 0; }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (max-width: 700px) {
+    .o2 span, .scroll { display: none; }
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+const STEPS = [
+  { action: 'propose', text: '1 · Agent proposes: raise a card limit', variant: 'lever' },
+  { action: 'approve', text: '2 · A person approves', variant: 'lever' },
+  { action: 'commit', text: '3 · Commit the change', variant: 'lever' },
+  { action: 'replay', text: 'Try: commit again (replay)', variant: 'lever try' },
+  { action: 'tamper', text: 'Try: change the limit after approval', variant: 'lever try' },
+] as const;
+---
+<div class="lab reveal" data-lab>
+  <div class="steps" role="group" aria-label="Approval flow steps">
+    {STEPS.map((s) => (
+      <button type="button" class={s.variant} data-action={s.action} disabled>
+        <span class="lamp" aria-hidden="true"></span>{s.text}
+      </button>
+    ))}
+    <button type="button" class="reset" data-action="reset" disabled>Reset</button>
+  </div>
+  <div class="log" data-log role="log" aria-label="What the ledger did" tabindex="0">
+    <p class="tone-info">// click the steps in any order</p>
+    <p class="tone-info">// try committing before approving</p>
+  </div>
+  <p class="nojs" data-nojs>
+    This demo needs JavaScript. In short: the agent can only propose a change. A person approves it and gets a
+    single-use token bound to a hash of that change. Committing without the token is blocked, a second commit is
+    rejected, and editing the change after approval breaks the hash.
+  </p>
+</div>
+
+<script>
+  import '../scripts/lab';
+</script>
+
+<style>
+  .lab {
+    margin-top: 40px; border-radius: 24px; border: 1px solid var(--line); padding: clamp(18px, 4vw, 34px);
+    background: radial-gradient(ellipse at 20% 0%, rgba(232, 196, 120, 0.08), transparent 60%), var(--bg-raised);
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 34px; align-items: start;
+  }
+  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .lever {
+    display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px;
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); color: var(--ink); cursor: pointer;
+    font: 500 15px var(--font-display); transition: border-color 0.3s, transform 0.3s var(--ease);
+  }
+  .lever:hover:not(:disabled) { border-color: rgba(232, 196, 120, 0.55); }
+  .lever:active:not(:disabled) { transform: scale(0.98); }
+  .lever:disabled { cursor: not-allowed; opacity: 0.6; }
+  .lever.try { border-style: dashed; }
+  .lamp { width: 12px; height: 12px; border-radius: 50%; background: #3a3f4d; flex: none; transition: background 0.4s, box-shadow 0.4s; }
+  .lever.on .lamp { background: var(--gold); box-shadow: 0 0 14px var(--gold); }
+  .lever.ok .lamp { background: var(--ok); box-shadow: 0 0 14px var(--ok); }
+  .lever.bad .lamp { background: var(--bad); box-shadow: 0 0 14px var(--bad); }
+  .reset {
+    align-self: flex-start; background: none; border: none; color: var(--muted); cursor: pointer; padding: 6px 2px;
+    font: 500 14px var(--font-display); text-decoration: underline; text-underline-offset: 4px;
+  }
+  .log {
+    font: 400 13.5px/1.7 var(--font-mono); color: var(--muted); background: rgba(0, 0, 0, 0.35); border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px; min-height: 240px; max-height: 360px; overflow-y: auto; overflow-wrap: anywhere;
+  }
+  .log :global(p + p) { margin-top: 6px; }
+  .log :global(.tone-ok) { color: var(--ok); }
+  .log :global(.tone-bad) { color: var(--bad); }
+  .nojs { grid-column: 1 / -1; color: var(--muted); font-size: 15px; }
+  @media (max-width: 900px) {
+    .lab { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

@@ -1,0 +1,74 @@
+---
+import { CONTESTS, EDUCATION, ROLES } from '../data/experience';
+import { LINKS, SITE } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { personNode, profileNode } from '../lib/seo/schema';
+---
+<BaseLayout schema={[profileNode('/experience/'), personNode]} breadcrumbs={[{ name: 'Experience', path: '/experience/' }]} title="Experience" description="Every role, with what I built in each: KONA Software Lab, BJIT and earlier web work, plus education and competitive programming.">
+  <header class="page-head">
+    <p class="label">Experience</p>
+    <h1 class="page-title">Six years of building software, most of them in <b>banking and payments</b>.</h1>
+    <p class="intro">Every role and what I did in it. Most lines link to a case study or project with the full story.</p>
+    <div class="ctas">
+      <a class="btn btn-primary" href={SITE.cvPath} download={SITE.cvFileName}>Download CV</a>
+      <a class="btn btn-ghost" href={LINKS.linkedin}>LinkedIn</a>
+    </div>
+  </header>
+
+  <section class="section section-tight" aria-label="Roles">
+    {ROLES.map((role) => (
+      <article class="role reveal" id={role.id}>
+        <div class="when">
+          <span>{role.start} – {role.end}</span>
+        </div>
+        <div class="what">
+          <h2>{role.title}</h2>
+          <p class="org">{role.org} · {role.location}</p>
+          {role.intro && <p class="role-intro">{role.intro}</p>}
+          <ul>
+            {role.bullets.map((b) => (
+              <li>
+                {b.text}
+                {b.href && <> <a class="more-link" href={b.href}>Read more →</a></>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <section class="section section-tight" aria-labelledby="edu-h">
+    <h2 class="sub-h" id="edu-h">Education</h2>
+    <article class="role edu">
+      <div class="when"><span>{EDUCATION.years}</span></div>
+      <div class="what">
+        <h3>{EDUCATION.degree}</h3>
+        <p class="org">{EDUCATION.school} · {EDUCATION.grade}</p>
+        <p class="role-intro">{EDUCATION.thesis}</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="section section-tight" aria-labelledby="cp-h">
+    <h2 class="sub-h" id="cp-h">Competitive programming and activities</h2>
+    <ul class="plain-list">{CONTESTS.map((c) => <li>{c}</li>)}</ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .role { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 28px; padding: 36px 0; border-top: 1px solid var(--line); }
+  .role:first-child { border-top: none; padding-top: 8px; }
+  .when span { font: 500 13px var(--font-mono); color: var(--gold); }
+  h2, h3 { font: 600 clamp(22px, 2.6vw, 28px)/1.2 var(--font-display); letter-spacing: -0.5px; }
+  .org { color: var(--ink-2); margin-top: 4px; }
+  .role-intro { color: var(--muted); margin-top: 12px; max-width: 760px; }
+  ul { margin-top: 16px; padding-left: 20px; display: grid; gap: 10px; color: var(--ink-2); max-width: 820px; }
+  li::marker { color: var(--gold); }
+  .more-link { color: var(--gold); white-space: nowrap; text-decoration: underline; text-underline-offset: 3px; }
+  .more-link:hover { text-decoration-thickness: 2px; }
+  .edu { border-top: none; padding-top: 16px; }
+  @media (max-width: 760px) {
+    .role { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  }
+</style>

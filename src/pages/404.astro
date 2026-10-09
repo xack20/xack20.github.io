@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Page not found" description="This page doesn't exist." noindex>
+  <section class="page-head lost">
+    <svg class="sky" viewBox="0 0 400 220" aria-hidden="true">
+      <g stroke="#e8c478" stroke-opacity=".45" fill="none">
+        <path d="M40 160 L110 90 L180 120 L250 60 L320 100" />
+      </g>
+      <g fill="#e8c478">
+        <circle cx="40" cy="160" r="4" /><circle cx="110" cy="90" r="5" /><circle cx="180" cy="120" r="4" />
+        <circle cx="250" cy="60" r="5" /><circle cx="320" cy="100" r="4" />
+      </g>
+      <circle cx="360" cy="185" r="3" fill="#e8c478" opacity=".35" />
+      <circle cx="360" cy="185" r="14" fill="none" stroke="#e8c478" stroke-dasharray="3 4" opacity=".5" />
+    </svg>
+    <p class="label">404</p>
+    <h1 class="page-title">This star isn't on the <b>map</b>.</h1>
+    <p class="intro">The page you were looking for doesn't exist, or it moved when I rebuilt this site.</p>
+    <div class="ctas">
+      <a class="btn btn-primary" href="/">Back to the start</a>
+      <a class="btn btn-ghost" href="/work/">See the work</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lost { min-height: 80svh; padding-bottom: 80px; }
+  .sky { width: min(400px, 100%); margin-bottom: 24px; }
+</style>

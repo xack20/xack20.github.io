@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from '../../components/ProjectCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const GROUPS = [
+  { key: 'kona', title: 'At KONA', intro: 'Smaller pieces of work at KONA that support the systems in the case studies.' },
+  { key: 'personal', title: 'Personal', intro: 'Things I build for myself, mostly around AI tools and apps.' },
+  { key: 'open-source', title: 'Open source', intro: 'Small fixes to projects I use. The larger whichllm fix has its own case study.' },
+  { key: 'earlier', title: 'Earlier work', intro: 'From my time at BJIT.' },
+] as const;
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const groups = GROUPS.map((g) => ({ ...g, items: projects.filter((p) => p.data.group === g.key) })).filter((g) => g.items.length > 0);
+---
+<BaseLayout breadcrumbs={[{ name: 'Projects', path: '/projects/' }]} title="Projects" description="Smaller projects: KONA tooling and identity, personal apps and AI tools, and open-source fixes.">
+  <header class="page-head">
+    <p class="label">Projects</p>
+    <h1 class="page-title">Smaller things I've <b>built</b>.</h1>
+    <p class="intro">The <a class="inline" href="/work/">case studies</a> go deep on the larger systems. This page covers the rest.</p>
+  </header>
+  {groups.map((g) => (
+    <section class="section section-tight" aria-labelledby={`${g.key}-h`}>
+      <h2 class="sub-h" id={`${g.key}-h`}>{g.title}</h2>
+      <p class="intro">{g.intro}</p>
+      <div class="grid">{g.items.map((entry) => <ProjectCard entry={entry} />)}</div>
+    </section>
+  ))}
+</BaseLayout>
+
+<style>
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
+  .inline { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+</style>

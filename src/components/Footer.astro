@@ -1,0 +1,19 @@
+---
+import { LINKS, SITE } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+<footer class="foot">
+  <span>© {year} {SITE.name}</span>
+  <span class="foot-links"><a href={LINKS.github}>GitHub</a><a href={LINKS.linkedin}>LinkedIn</a><a href="/rss.xml">RSS</a></span>
+  <span>Built with Astro · no trackers</span>
+</footer>
+
+<style>
+  .foot {
+    max-width: var(--max); margin: 0 auto; border-top: 1px solid var(--line); padding: 26px var(--gutter);
+    display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; color: var(--muted); font-size: 13px;
+  }
+  .foot-links { display: flex; gap: 18px; }
+  a:hover { color: var(--ink); }
+</style>

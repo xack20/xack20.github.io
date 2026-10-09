@@ -1,0 +1,27 @@
+:root {
+  --bg: #070a14;
+  --bg-raised: #0a1020;
+  --bg-glow: #101a33;
+  --surface: #0d1324;
+  --ink: #f3f1ea;
+  --ink-2: rgba(243, 241, 234, 0.84);
+  --muted: rgba(243, 241, 234, 0.7);
+  --gold: #e8c478;
+  --gold-2: #d9a94f;
+  --gold-hi: #fff2cf;
+  --gold-deep: #b8873a;
+  --on-gold: #1a1205;
+  --line: rgba(232, 196, 120, 0.18);
+  --line-strong: rgba(232, 196, 120, 0.45);
+  --card: rgba(255, 255, 255, 0.035);
+  --ok: #5ee6a0;
+  --bad: #ff7a6b;
+  --font-display: 'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter Variable', Inter, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --max: 1180px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --nav-h: 68px;
+  color-scheme: dark;
+}
