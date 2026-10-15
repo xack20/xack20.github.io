@@ -6,16 +6,15 @@ import { personNode, profileNode } from '../lib/seo/schema';
 ---
 <BaseLayout schema={[profileNode('/experience/'), personNode]} breadcrumbs={[{ name: 'Experience', path: '/experience/' }]} title="Experience" description="Every role, with what I built in each: KONA Software Lab, BJIT and earlier web work, plus education and competitive programming.">
   <header class="page-head">
-    <p class="label">Experience</p>
-    <h1 class="page-title">Six years of building software, most of them in <b>banking and payments</b>.</h1>
-    <p class="intro">Every role and what I did in it. Most lines link to a case study or project with the full story.</p>
+    <h1 class="page-title">Experience</h1>
+    <p class="intro">Every role and what I did in it. Most lines link to a case study or a project page.</p>
     <div class="ctas">
       <a class="btn btn-primary" href={SITE.cvPath} download={SITE.cvFileName}>Download CV</a>
       <a class="btn btn-ghost" href={LINKS.linkedin}>LinkedIn</a>
     </div>
   </header>
 
-  <section class="section section-tight" aria-label="Roles">
+  <section class="section section-tight roles" aria-label="Roles">
     {ROLES.map((role) => (
       <article class="role reveal" id={role.id}>
         <div class="when">
@@ -57,17 +56,24 @@ import { personNode, profileNode } from '../lib/seo/schema';
 </BaseLayout>
 
 <style>
-  .role { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 28px; padding: 36px 0; border-top: 1px solid var(--line); }
-  .role:first-child { border-top: none; padding-top: 8px; }
-  .when span { font: 500 13px var(--font-mono); color: var(--gold); }
-  h2, h3 { font: 600 clamp(22px, 2.6vw, 28px)/1.2 var(--font-display); letter-spacing: -0.5px; }
+  .roles { display: grid; gap: 16px; }
+  /* Each role is a glass panel: dates in the left column, the role in the right. */
+  .role {
+    display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 24px; padding: clamp(20px, 3vw, 30px); border-radius: 18px;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    background: linear-gradient(150deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.01) 40%, rgb(255 255 255 / 0.03)), rgb(13 13 17 / 0.72);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 30px 60px -30px rgb(0 0 0 / 0.9);
+    backdrop-filter: blur(14px) saturate(1.4);
+  }
+  .when span { font: 500 12px/1.6 var(--font-mono); letter-spacing: 0.06em; color: var(--muted); }
+  h2, h3 { font: 560 clamp(21px, 2.4vw, 26px)/1.2 var(--font-display); letter-spacing: -0.015em; }
   .org { color: var(--ink-2); margin-top: 4px; }
-  .role-intro { color: var(--muted); margin-top: 12px; max-width: 760px; }
-  ul { margin-top: 16px; padding-left: 20px; display: grid; gap: 10px; color: var(--ink-2); max-width: 820px; }
-  li::marker { color: var(--gold); }
-  .more-link { color: var(--gold); white-space: nowrap; text-decoration: underline; text-underline-offset: 3px; }
+  .role-intro { color: var(--ink-2); margin-top: 12px; max-width: 720px; }
+  ul { margin-top: 16px; padding-left: 20px; display: grid; gap: 10px; color: var(--ink-2); max-width: 760px; }
+  li::marker { color: var(--accent-2); }
+  .more-link { color: var(--accent); white-space: nowrap; text-decoration: underline; text-underline-offset: 3px; }
   .more-link:hover { text-decoration-thickness: 2px; }
-  .edu { border-top: none; padding-top: 16px; }
+  .edu { margin-top: 20px; }
   @media (max-width: 760px) {
     .role { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   }

@@ -1,8 +1,8 @@
 ---
-title: "Reporting and data for a multi-bank card platform"
-card: Reporting and data for a multi-bank card platform
-summary: A dashboard API for card issuers, cardholder reports scoped to each bank, an ETL that records what every load actually did, and Superset dashboards rebuilt from code, all on KONA's Oracle star-schema warehouse.
-outcome: Each bank sees only its own cardholders, and a load that moves nothing now shows up instead of passing as a success.
+title: "Reporting and data for the card platform"
+card: "Reporting and data for the card platform"
+summary: "A dashboard API for card issuers, cardholder reports scoped to each bank, an ETL that records what each load did, and Superset dashboards built from code, on KONA's Oracle star-schema warehouse."
+outcome: "Each bank sees only its own cardholders, and a load that moves no rows is reported instead of counted as a success."
 meta: KONA · Reporting and data · 2026
 org: KONA Software Lab
 client: Card issuers on KONA's card management system
@@ -12,6 +12,7 @@ status: Built for KONA's card management system
 order: 7
 featured: false
 group: kona
+category: payments
 published: 2026-10-09
 stack: [Java, Spring Boot, Spring Batch, Oracle, JasperReports, Kafka Connect, Apache Superset, Docker Compose]
 plain: Banks that issue cards on KONA's platform get dashboards and reports about their cards and transactions. I built the data API behind those dashboards, made sure each bank only ever sees its own cardholders, and made the nightly data loads say so when they quietly load nothing.

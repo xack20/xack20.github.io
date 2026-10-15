@@ -1,42 +1,30 @@
-export interface PillarLink { readonly label: string; readonly href: string }
-export interface Pillar {
-  readonly n: string;
-  readonly title: string;
-  readonly body: string;
-  readonly tags: readonly string[];
-  readonly links: readonly PillarLink[];
+import type { Category } from '../lib/scene/plates';
+
+/** The legend's wording for the three kinds of work on the home page. */
+export const CATEGORY_LABELS: Readonly<Record<Category, string>> = {
+  agents: 'Agentic AI',
+  payments: 'Payments and ledgers',
+  personal: 'Personal and open source',
+};
+
+export interface ApprovalGate {
+  readonly id: 'propose' | 'approve' | 'commit';
+  readonly label: string;
+  readonly clause: string;
 }
 
-export const PILLARS: readonly Pillar[] = [
-  {
-    n: '01',
-    title: 'Safe agentic AI',
-    body: 'MCP tool servers, approval flows where the agent can only draft, and guardrails and evals that catch what the model gets wrong.',
-    tags: ['MCP', 'LangGraph', 'Evals'],
-    links: [
-      { label: 'Tool servers', href: '/work/mcp-tool-servers/' },
-      { label: 'Evals and guardrails', href: '/work/agent-evals-guardrails/' },
-    ],
-  },
-  {
-    n: '02',
-    title: 'Self-hosted LLMs',
-    body: 'Models served on our own hardware, so bank data never goes to an outside model API. vLLM, LiteLLM, Qwen, and a RAG system our engineers use every day.',
-    tags: ['vLLM', 'LiteLLM', 'RAG'],
-    links: [{ label: 'LLMs and RAG', href: '/work/self-hosted-llms-rag/' }],
-  },
-  {
-    n: '03',
-    title: 'Payments & ledgers',
-    body: 'Card platforms, fund tracing, and a token-backed commerce platform on Hyperledger Fabric with HSM-backed identities.',
-    tags: ['Java', 'Node.js', 'Fabric'],
-    links: [
-      { label: 'NCP on Fabric', href: '/work/ncp-fabric/' },
-      { label: 'Tag Explorer', href: '/work/tag-explorer/' },
-      { label: 'Reporting', href: '/work/card-reporting-data/' },
-    ],
-  },
+/** The three gates of the approval sequence, each with its one-line caption. */
+export const APPROVAL_GATES: readonly ApprovalGate[] = [
+  { id: 'propose', label: 'Propose', clause: 'The agent drafts a change.' },
+  { id: 'approve', label: 'Approve', clause: 'A person approves it.' },
+  { id: 'commit', label: 'Commit', clause: 'The approval works once.' },
 ];
 
-/** Case studies shown on the home page, in order; the first is the featured wide card. */
-export const HOME_WORK: readonly string[] = ['agentic-cms-assistant', 'mcp-tool-servers', 'kon-ai-nagad', 'tag-explorer', 'ncp-fabric'];
+export const HOME_LABELS = {
+  work: 'Work',
+  caseStudies: (count: number): string => `${count} case studies`,
+  viewWork: 'View work',
+  getInTouch: 'Get in touch',
+  scroll: 'Scroll',
+  approvalHeading: 'The approval flow',
+} as const;

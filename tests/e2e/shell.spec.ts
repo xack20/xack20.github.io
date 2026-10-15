@@ -66,3 +66,28 @@ test('Escape closes the mobile menu and returns focus to its button', async ({ p
   await expect(page.locator('details.menu')).not.toHaveAttribute('open', '');
   await expect(summary).toBeFocused();
 });
+
+test('the sky canvas is on every kind of page and is hidden from assistive technology', async ({ page }) => {
+  for (const [path, kind] of [['/', 'home'], ['/about/', 'inner']] as const) {
+    await page.goto(path);
+    const sky = page.locator('canvas[data-sky]');
+    await expect(sky).toHaveCount(1);
+    await expect(sky).toHaveAttribute('data-page', kind);
+    await expect(sky).toHaveAttribute('aria-hidden', 'true');
+  }
+});
+
+test('without WebGL the sky falls back to its CSS glow and nothing breaks', async ({ page }) => {
+  const errors = collectErrors(page);
+  // Refuse every WebGL context, the way a locked-down or software-only browser does.
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement, kind: string, ...rest: unknown[]) {
+      return kind.startsWith('webgl') ? null : (original as (...args: unknown[]) => unknown).call(this, kind, ...rest);
+    } as typeof original;
+  });
+  await page.goto('/about/');
+  await expect(page.locator('canvas[data-sky]')).toHaveAttribute('data-fallback', 'true');
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+  expect(errors).toEqual([]);
+});

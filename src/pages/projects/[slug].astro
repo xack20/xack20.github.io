@@ -20,7 +20,6 @@ const facts = [
   { term: 'Where', value: data.org },
   { term: 'When', value: data.years },
   ...(data.status ? [{ term: 'Status', value: data.status }] : []),
-  { term: 'My part', value: data.role },
 ];
 ---
 <BaseLayout
@@ -35,7 +34,10 @@ const facts = [
       <p class="label"><a href="/projects/">Projects</a> · {data.meta}</p>
       <h1 class="page-title">{data.title}</h1>
       <p class="outcome">{data.summary}</p>
-      <dl class="facts">{facts.map((f) => <div><dt>{f.term}</dt><dd>{f.value}</dd></div>)}</dl>
+      <dl class="facts">
+        {facts.map((f) => <div><dt>{f.term}</dt><dd>{f.value}</dd></div>)}
+        <div class="role"><dt>My part</dt><dd>{data.role}</dd></div>
+      </dl>
     </header>
     <div class="body">
       <div class="prose"><Content /></div>
@@ -58,20 +60,26 @@ const facts = [
 </BaseLayout>
 
 <style>
-  .outcome { font-size: clamp(18px, 2vw, 21px); color: var(--ink-2); max-width: 760px; }
+  .outcome, .facts, .prose, .extra, .next { max-width: 820px; }
+  .outcome { font-size: clamp(18px, 2vw, 21px); color: var(--ink-2); }
   .facts {
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 32px; padding: 24px;
-    border: 1px solid var(--line); border-radius: 18px; background: var(--card);
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 24px; margin-top: 36px; padding: 22px 24px;
+    border: 1px solid rgb(255 255 255 / 0.12); border-radius: 18px;
+    background: linear-gradient(150deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.01) 40%, rgb(255 255 255 / 0.03)), rgb(13 13 17 / 0.72);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 30px 60px -30px rgb(0 0 0 / 0.9);
+    backdrop-filter: blur(14px) saturate(1.4);
   }
-  dt { font: 500 11px var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
-  dd { color: var(--ink-2); font-size: 15px; margin-top: 4px; }
+  dt { font: 500 11px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  dd { color: var(--ink); font-size: 15px; line-height: 1.5; margin-top: 6px; }
+  .role { grid-column: 1 / -1; padding-top: 16px; border-top: 1px solid var(--line); }
+  .role dd { color: var(--ink-2); }
   .body { max-width: var(--max); margin: 0 auto; padding: 16px var(--gutter) 80px; }
   .extra { margin-top: 48px; }
-  .extra h2 { font: 600 clamp(22px, 2.6vw, 28px)/1.2 var(--font-display); margin-bottom: 14px; }
-  .extra a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+  .extra h2 { font: 600 clamp(22px, 2.6vw, 28px)/1.2 var(--font-display); letter-spacing: -0.5px; margin-bottom: 14px; }
+  .extra a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
   .next { margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
-  .next a { font: 600 clamp(20px, 2.4vw, 26px) var(--font-display); }
-  .next a:hover { color: var(--gold); }
-  @media (max-width: 900px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 520px) { .facts { grid-template-columns: minmax(0, 1fr); } }
+  .next a { font: 600 clamp(20px, 2.4vw, 26px) var(--font-display); letter-spacing: -0.01em; }
+  .next a:hover { color: var(--accent); }
+  @media (max-width: 700px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 460px) { .facts { grid-template-columns: minmax(0, 1fr); gap: 14px; } }
 </style>

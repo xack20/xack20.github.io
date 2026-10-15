@@ -2,6 +2,7 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { DIAGRAM_LIMITS } from './lib/diagram/layout';
+import { CATEGORIES } from './lib/scene/plates';
 
 const node = z.object({
   label: z.string().min(1).max(DIAGRAM_LIMITS.label),
@@ -30,6 +31,7 @@ const work = defineCollection({
     order: z.number().int().positive(),
     featured: z.boolean().default(false),
     group: z.enum(['kona', 'personal']).default('kona'),
+    category: z.enum(CATEGORIES),
     published: z.coerce.date(),
     stack: z.array(z.string()).min(1),
     plain: z.string(),

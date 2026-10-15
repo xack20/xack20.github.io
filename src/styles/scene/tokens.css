@@ -1,0 +1,56 @@
+/* Tokens for the home page's island: the plate scene and the signal. Blueprint: near-black, white
+   and greys, and one hue family (blue into cyan) for all light. The values are written out here
+   rather than read from the site's tokens, so the island does not move when those are edited. */
+:root {
+  --scene-void: #050506;
+  --scene-ink: #f4f5f7;
+  --scene-ink-soft: #b6bcc8;
+  --scene-ink-mute: #8b93a3;
+
+  /* The one hue family, darkest to lightest. */
+  --scene-deep: #0b2a66;
+  --scene-blue: #2f6bff;
+  --scene-sky: #4c9dff;
+  --scene-cyan: #7fd4ff;
+  --scene-ice: #e6f4ff;
+
+  --scene-font-display: "Inter Tight Variable", "Geist Variable", system-ui, sans-serif;
+  --scene-font-sans: "Geist Variable", system-ui, sans-serif;
+  --scene-font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+  /* Height of the site header the scene sits under; scene/constants.ts holds the same number. */
+  --scene-header-h: 64px;
+  --scene-gutter: clamp(16px, 3vw, 40px);
+  --scene-plate-w: clamp(236px, 20.6vw, 328px);
+  --scene-plate-h: 204px;
+  --scene-plate-radius: 18px;
+  --scene-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* The signal. The canvas reads the same line height from signal/layout.ts. */
+  --signal-line-y: 47%;
+  /* Light on the line once a person has approved: the same family, near-white. */
+  --signal-approved: var(--scene-ice);
+
+  /* How far the ribbon sits below the middle of the first screen, and how long the approval sequence scrolls. */
+  --home-ribbon-drop: 46svh;
+  --home-approval-length: 350svh;
+  --home-beam-from: var(--scene-cyan);
+  --home-beam-to: var(--scene-blue);
+}
+
+@media (max-width: 899px) {
+  :root {
+    --home-ribbon-drop: 44svh;
+  }
+}
+
+/* The three kinds of work share the hue and differ in lightness; the mark's shape tells them apart. */
+[data-category="agents"] {
+  --tone: var(--scene-sky);
+}
+[data-category="payments"] {
+  --tone: var(--scene-blue);
+}
+[data-category="personal"] {
+  --tone: var(--scene-cyan);
+}

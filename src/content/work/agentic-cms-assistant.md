@@ -1,8 +1,8 @@
 ---
-title: An AI assistant bank operators can trust with writes
-card: An AI assistant bank operators can trust with writes
-summary: Operators ask about products, cards and transactions in English or Bangla. The agent finds the right screen or prepares the change, and nothing takes effect until a person approves it.
-outcome: The agent can look things up and prepare changes, but nothing it prepares takes effect until a person approves it.
+title: "AI assistant for KONA's card management system"
+card: "AI assistant for the card management system"
+summary: "Bank operators ask about products, cards and transactions in English or Bangla. The assistant finds the right screen or prepares the change, and nothing takes effect until a person approves it."
+outcome: "The assistant looks things up and prepares changes. A person approves each change before it takes effect."
 meta: KONA · Card management · 2026
 org: KONA Software Lab
 client: Banks using KONA's card management system
@@ -12,6 +12,7 @@ status: In active development
 order: 1
 featured: true
 group: kona
+category: agents
 published: 2026-10-09
 stack: [Java, Spring Boot, Spring WebFlux, PostgreSQL, TypeScript, Node.js, Zod, Python, FastAPI, LangGraph, MCP, Angular, ApexCharts, vLLM, LiteLLM, Qwen]
 plain: Bank staff can ask the card system questions in plain English or Bangla and get answers from live data. When they want something changed, the assistant prepares the request for them, but a person still has to approve it before it takes effect.

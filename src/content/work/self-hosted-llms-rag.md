@@ -1,8 +1,8 @@
 ---
 title: "Self-hosted LLMs and a RAG over card specifications"
-card: Self-hosted LLMs and a card-spec RAG
-summary: I set up KONA's own LLM stack on an NVIDIA DGX Spark, put every model behind one gateway and moved our agents onto it. I also built a RAG over 54 card specifications that our card personalization engineers use every day.
-outcome: Our agents run on models we host ourselves, so bank data never goes to an outside model API.
+card: "Self-hosted LLMs and a card-spec RAG"
+summary: "I set up KONA's LLM stack on an NVIDIA DGX Spark, put the models behind one gateway and moved our agents onto it. I also built a RAG over 54 card specifications that our card personalization engineers use every day."
+outcome: "The agents run on models we host, so bank data is not sent to an outside model API."
 meta: KONA · LLM infrastructure · 2026
 org: KONA Software Lab
 years: "2026"
@@ -11,6 +11,7 @@ status: In use by the agent services and the card personalization team
 order: 5
 featured: false
 group: kona
+category: agents
 published: 2026-10-09
 stack: [NVIDIA DGX Spark, vLLM, LiteLLM, Qwen, NVFP4, RAGFlow, Python]
 plain: KONA's AI assistants run on a machine we own, so bank data never goes to an outside AI company. I also built a search assistant that answers card engineers' questions from the card specifications they work with every day.

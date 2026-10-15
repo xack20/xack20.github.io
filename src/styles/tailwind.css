@@ -1,0 +1,5 @@
+/* Tailwind's theme and utilities without its reset: the site's own base styles stay in charge.
+   Only the React island's registry components use these classes. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);

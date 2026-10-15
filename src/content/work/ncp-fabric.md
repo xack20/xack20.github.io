@@ -1,8 +1,8 @@
 ---
-title: A token-backed commerce platform on Hyperledger Fabric
-card: A token-backed commerce platform on Hyperledger Fabric
-summary: Offline transaction signing, HSM-backed identities, and messaging that survives a broker outage. I was its top contributor.
-outcome: Users sign their own transactions, and the gateway keeps them flowing when a broker or an instance goes down.
+title: "NCP: a commerce platform on Hyperledger Fabric"
+card: "NCP: commerce platform on Hyperledger Fabric"
+summary: "A token-backed commerce platform for KONA I. I worked on offline transaction signing, HSM-backed identities and messaging that recovers after a broker outage, and was its top contributor."
+outcome: "Users sign their own transactions, and the gateway keeps working when a broker or an instance goes down."
 meta: KONA I · Blockchain · 2022–25
 org: KONA Software Lab
 client: KONA I (Korea)
@@ -11,6 +11,7 @@ role: Top contributor to NCP (New Commerce Platform). I owned the token manageme
 status: Live for KONA I in Korea
 order: 8
 group: kona
+category: payments
 published: 2026-10-09
 stack: [Node.js, Express, Hyperledger Fabric, Go chaincode, RabbitMQ, Redis, Socket.IO, React, HSM (PKCS#11), X.509, Hyperledger Caliper, AWS EC2, Go, Gin, Next.js, Java, TestNG, RestAssured, Selenium, Allure, TestRail]
 plain: NCP lets merchants and their customers issue, trade and redeem digital tokens, with every movement recorded on a shared Hyperledger Fabric ledger. I built the gateway between the platform and the ledger. It gets transactions signed, endorsed and committed, and keeps them moving when other parts of the system fail.

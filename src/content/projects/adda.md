@@ -1,5 +1,5 @@
 ---
-title: "Adda: a bilingual party game in real time"
+title: "Adda: a bilingual party game"
 summary: "A party game for friends in the same room, with word decks in Bangla and English. Each game room runs as its own Cloudflare Durable Object, and one Svelte 5 web app also ships as iOS and Android apps. A solo project with about 296 tests."
 meta: "Personal · Multiplayer game · 2026"
 org: "Personal project"

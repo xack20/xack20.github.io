@@ -1,8 +1,8 @@
 ---
-title: "Tag Explorer: every balance, traced to its source"
-card: "Tag Explorer: every balance, traced to its source"
-summary: Fund tracing for a KRW-pegged card system. Every transaction becomes a UTXO with a lineage tag, so auditors and regulators can follow any balance back to where it came from.
-outcome: Auditors can pick any balance and follow it back, payment by payment, to where the money came from.
+title: "Tag Explorer: fund tracing for a card system"
+card: "Tag Explorer: fund tracing for a card system"
+summary: "Fund tracing for a KRW-pegged card system. Each transaction becomes a UTXO with a lineage tag, so auditors and regulators can follow a balance back to its source."
+outcome: "An auditor can pick a balance and follow it back, payment by payment, to its source."
 meta: KONA I · Fund tracing · 2025–26
 org: KONA Software Lab
 client: KONA I (Korea)
@@ -11,6 +11,7 @@ role: Built with one teammate, and I'm the top contributor. I wrote the React ex
 status: In production
 order: 6
 group: kona
+category: payments
 published: 2026-10-09
 stack: [Java 21, Spring Boot 3.5, Undertow, PostgreSQL, LevelDB, MongoDB, React, TypeScript, Vite, React Router 6, Tailwind, Recharts, i18next, Playwright, Python, Airflow, Spark, Docker, PM2, nginx]
 plain: A local-currency card in Korea lets people recharge, pay, send money and donate. Tag Explorer records where every unit of value came from, so an auditor can pick any balance and trace it back through each payment to its source.

@@ -4,9 +4,11 @@ export const SITE = {
   role: 'Senior Software Engineer',
   location: 'Dhaka, Bangladesh',
   url: 'https://xack20.github.io',
-  tagline: 'Engineering trust into AI agents',
+  where: 'KONA Software Lab, Dhaka',
+  intro:
+    'I build AI agents for banking and mobile-wallet products, and the tool servers, approval flow and evals around them. Before that I worked on a Hyperledger Fabric commerce platform.',
   description:
-    'Senior software engineer in Dhaka. I build the agents, tool servers and guardrails behind banking and mobile-wallet assistants.',
+    'Senior software engineer in Dhaka. I build AI agents, MCP tool servers and guardrails for banking and mobile-wallet products.',
   email: 'zakariahossain20@gmail.com',
   cvPath: '/cv.pdf',
   cvFileName: 'Zakaria_Hossain_Foysal_CV.pdf',

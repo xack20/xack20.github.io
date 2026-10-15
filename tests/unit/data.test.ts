@@ -3,7 +3,7 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { loadConfidentialRules } from '../../scripts/guards/confidential.mjs';
 import { findViolations } from '../../scripts/guards/rules.mjs';
-import { PILLARS } from '../../src/data/home';
+import { APPROVAL_GATES, CATEGORY_LABELS, HOME_LABELS } from '../../src/data/home';
 import { PATH } from '../../src/data/path';
 import { LINKS, NAV, SITE, personJsonLd } from '../../src/data/site';
 import { SKILLS } from '../../src/data/skills';
@@ -25,7 +25,7 @@ const CONFIDENTIAL = loadConfidentialRules();
 
 describe('site data', () => {
   it('passes every site content rule', () => {
-    const all = JSON.stringify({ SITE, LINKS, NAV, PILLARS, PATH, WRITING, SKILLS, personJsonLd, ROLES, EDUCATION, CONTESTS });
+    const all = JSON.stringify({ SITE, LINKS, NAV, CATEGORY_LABELS, APPROVAL_GATES, HOME_LABELS, PATH, WRITING, SKILLS, personJsonLd, ROLES, EDUCATION, CONTESTS });
     expect(findViolations(all, 'site', CONFIDENTIAL)).toEqual([]);
   });
 

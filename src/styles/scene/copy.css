@@ -1,0 +1,258 @@
+/* The centred copy of the first screen. Each part is its own plane in the 3D world. */
+
+.scene-copy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  max-width: 100%;
+  text-align: center;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.scene-copy :is(a, button) {
+  pointer-events: auto;
+}
+
+.scene-copy__part {
+  will-change: transform, opacity;
+}
+
+.scene-copy__lower {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+}
+
+/* The entrance. It is CSS, not script, because the copy is in the server render: it has to be
+   readable with JavaScript off, and an entrance that starts hidden in script would blink out and
+   back in when the island hydrates. `backwards` leaves no filter or transform behind. */
+@media (prefers-reduced-motion: no-preference) {
+  .scene-enter {
+    animation: scene-enter 0.7s ease-out var(--scene-enter-delay, 0s) backwards;
+  }
+
+  /* The two lines of the headline rise into place instead of dropping. */
+  .scene-enter--line {
+    animation-name: scene-enter-line;
+    animation-duration: 0.4s;
+  }
+}
+
+.scene-enter--pill {
+  --scene-enter-delay: 0.14s;
+}
+
+.scene-enter--name {
+  --scene-enter-delay: 0.2s;
+}
+
+.scene-enter--role {
+  --scene-enter-delay: 0.45s;
+}
+
+.scene-enter--lede {
+  --scene-enter-delay: 0.59s;
+}
+
+.scene-enter--actions {
+  --scene-enter-delay: 0.74s;
+}
+
+.scene-enter--icons {
+  --scene-enter-delay: 0.89s;
+}
+
+@keyframes scene-enter {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes scene-enter-line {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(20px);
+  }
+}
+
+.scene-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 32px;
+  margin: 0;
+  padding: 0 14px 0 12px;
+  border-radius: 999px;
+  font: 500 12.5px/1 var(--scene-font-sans);
+  letter-spacing: 0.005em;
+  color: var(--scene-ink-soft);
+  background: rgb(255 255 255 / 0.045);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.1),
+    inset 0 1px 0 rgb(255 255 255 / 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.scene-pill > p {
+  margin: 0;
+}
+
+.scene-pill > i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--scene-sky);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--scene-sky) 20%, transparent),
+    0 0 12px var(--scene-sky);
+}
+
+/* The name. It never wraps, so on a narrow phone it scales with the screen instead of running off it. */
+.scene-headline {
+  margin: 0;
+  font-family: var(--scene-font-display);
+  font-size: min(9.6vw, clamp(2.4rem, 1rem + 4.3vw, 4.6rem));
+  font-weight: 540;
+  line-height: 1.02;
+  letter-spacing: -0.034em;
+  color: var(--scene-ink);
+  white-space: nowrap;
+}
+
+.scene-headline > span {
+  display: block;
+}
+
+/* The role reads as a subtitle under the name, not a second headline: the same white, dimmed and
+   falling off like light. Never below 4.5:1 on the void. */
+.scene-headline > .scene-headline__role {
+  margin-top: 0.3em;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+  font-size: 0.5em;
+  letter-spacing: -0.02em;
+  color: transparent;
+  background: linear-gradient(180deg, rgb(244 245 247 / 0.8), rgb(244 245 247 / 0.52));
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.scene-lede {
+  max-width: 33rem;
+  margin: 0;
+  font-size: clamp(1rem, 0.94rem + 0.32vw, 1.1875rem);
+  line-height: 1.55;
+  color: var(--scene-ink-soft);
+  text-wrap: pretty;
+}
+
+/* On phones the sky sits behind the introduction; a dark halo on the type keeps it readable.
+   Not on the role: its letters are see-through, so a halo would show in them and dim it. */
+@media (max-width: 899px) {
+  .scene-lede,
+  .scene-headline__name {
+    text-shadow:
+      0 0 10px var(--scene-void),
+      0 0 22px var(--scene-void),
+      0 0 36px var(--scene-void);
+  }
+}
+
+.scene-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.scene-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  gap: 8px;
+  white-space: nowrap;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  font: 500 14px/1 var(--scene-font-sans);
+  text-decoration: none;
+}
+
+.scene-btn--solid {
+  color: #08080a;
+  background: var(--scene-ink);
+  box-shadow:
+    inset 0 -1px 0 rgb(0 0 0 / 0.18),
+    0 12px 44px -12px color-mix(in oklab, var(--scene-sky) 60%, transparent);
+}
+
+.scene-btn--solid:hover {
+  background: #fff;
+}
+
+.scene-btn--glass {
+  color: var(--scene-ink);
+  background: rgb(255 255 255 / 0.055);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.13),
+    inset 0 1px 0 rgb(255 255 255 / 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.scene-btn--glass:hover {
+  color: var(--scene-ink);
+  background: rgb(255 255 255 / 0.1);
+}
+
+.scene-icons {
+  display: flex;
+  gap: 2px;
+}
+
+.scene-icon-link {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--scene-ink-soft);
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+}
+
+.scene-icon-link:hover {
+  color: var(--scene-ink);
+  background: rgb(255 255 255 / 0.08);
+}
+
+.scene-icon-link svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* The site's focus ring also sets a small corner radius; these keep their own shape. */
+.home-root :is(.scene-btn, .scene-icon-link):focus-visible {
+  border-radius: 999px;
+}
+
+@media (max-width: 639px) {
+  .scene-copy {
+    gap: 20px;
+  }
+  .scene-copy__lower {
+    gap: 22px;
+  }
+  .scene-pill {
+    font-size: 12px;
+  }
+}

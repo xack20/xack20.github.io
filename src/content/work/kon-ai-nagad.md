@@ -1,8 +1,8 @@
 ---
-title: "KON-AI: an in-app assistant for Nagad"
-card: KON-AI, an in-app assistant for Nagad
-summary: The same agent stack, now inside the Nagad mobile wallet for customers and guests. It answers in Bangla, English or Banglish and sends people to the right screen, with PIN-safety rules in code, not in the prompt.
-outcome: One agent platform now serves two products, and the wallet assistant can't send someone to the wrong PIN screen.
+title: "KON-AI, the assistant in the Nagad app"
+card: "KON-AI: assistant in the Nagad app"
+summary: "The same agent stack inside the Nagad mobile wallet, for customers and guests. It answers in Bangla, English or Banglish and points people to the right screen. The PIN-safety rules are written in code."
+outcome: "One agent platform now serves two products. A customer who forgot their PIN is never sent to the change-PIN screen."
 meta: Nagad · Mobile wallet · 2026
 org: KONA Software Lab
 client: Nagad
@@ -11,6 +11,7 @@ role: I worked on every part of it and directly with the app team. I wrote the s
 status: Integrated into the Nagad app and in testing
 order: 4
 group: kona
+category: agents
 published: 2026-10-09
 stack: [Java 17, Spring Boot, MCP Java SDK, Python, FastAPI, LangGraph, Server-sent events]
 plain: Nagad customers and guests can ask the app how to do something, in Bangla, English or a mix of the two, and get the steps plus a button that opens the right screen. It can't see balances or move money, and it will never send someone who has lost their PIN to the change-PIN screen.

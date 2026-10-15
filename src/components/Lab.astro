@@ -33,31 +33,37 @@ const STEPS = [
 
 <style>
   .lab {
-    margin-top: 40px; border-radius: 24px; border: 1px solid var(--line); padding: clamp(18px, 4vw, 34px);
-    background: radial-gradient(ellipse at 20% 0%, rgba(232, 196, 120, 0.08), transparent 60%), var(--bg-raised);
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 34px; align-items: start;
+    margin-top: 32px; padding: clamp(18px, 4vw, 30px); border-radius: 18px; border: 1px solid rgb(255 255 255 / 0.12);
+    background: linear-gradient(150deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.01) 40%, rgb(255 255 255 / 0.03)), rgb(13 13 17 / 0.72);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 30px 60px -30px rgb(0 0 0 / 0.9);
+    backdrop-filter: blur(14px) saturate(1.4);
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 28px; align-items: start;
   }
-  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .steps { display: flex; flex-direction: column; gap: 10px; }
   .lever {
-    display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px;
-    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); color: var(--ink); cursor: pointer;
-    font: 500 15px var(--font-display); transition: border-color 0.3s, transform 0.3s var(--ease);
+    display: flex; align-items: center; gap: 14px; width: 100%; min-height: 48px; text-align: left; padding: 12px 16px; border-radius: 12px;
+    border: 1px solid rgb(255 255 255 / 0.12); background: rgb(255 255 255 / 0.04); color: var(--ink); cursor: pointer;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
+    font: 500 15px var(--font-display); transition: border-color 0.3s, background-color 0.3s, transform 0.3s var(--ease);
   }
-  .lever:hover:not(:disabled) { border-color: rgba(232, 196, 120, 0.55); }
+  .lever:hover:not(:disabled) { border-color: rgb(255 255 255 / 0.28); background: rgb(255 255 255 / 0.07); }
   .lever:active:not(:disabled) { transform: scale(0.98); }
-  .lever:disabled { cursor: not-allowed; opacity: 0.6; }
+  .lever:disabled { cursor: not-allowed; color: var(--muted); border-style: dashed; background: transparent; }
   .lever.try { border-style: dashed; }
-  .lamp { width: 12px; height: 12px; border-radius: 50%; background: #3a3f4d; flex: none; transition: background 0.4s, box-shadow 0.4s; }
-  .lever.on .lamp { background: var(--gold); box-shadow: 0 0 14px var(--gold); }
-  .lever.ok .lamp { background: var(--ok); box-shadow: 0 0 14px var(--ok); }
+  .lamp { width: 10px; height: 10px; border-radius: 50%; background: rgb(255 255 255 / 0.14); flex: none; transition: background 0.4s, box-shadow 0.4s; }
+  /* One hue: a draft is blue, an approval is near-white, a rejection is the one colour outside the family. */
+  .lever.on .lamp { background: var(--accent-2); box-shadow: 0 0 12px var(--accent-2); }
+  .lever.ok .lamp { background: var(--accent-hi); box-shadow: 0 0 14px var(--accent); }
   .lever.bad .lamp { background: var(--bad); box-shadow: 0 0 14px var(--bad); }
   .reset {
-    align-self: flex-start; background: none; border: none; color: var(--muted); cursor: pointer; padding: 6px 2px;
+    align-self: flex-start; min-height: 44px; background: none; border: none; color: var(--muted); cursor: pointer; padding: 10px 2px;
     font: 500 14px var(--font-display); text-decoration: underline; text-underline-offset: 4px;
   }
+  .reset:hover:not(:disabled) { color: var(--ink); }
+  .reset:disabled { cursor: not-allowed; }
   .log {
-    font: 400 13.5px/1.7 var(--font-mono); color: var(--muted); background: rgba(0, 0, 0, 0.35); border: 1px solid var(--line);
-    border-radius: 14px; padding: 18px; min-height: 240px; max-height: 360px; overflow-y: auto; overflow-wrap: anywhere;
+    font: 400 13.5px/1.7 var(--font-mono); color: var(--muted); background: rgb(0 0 0 / 0.4); border: 1px solid var(--line);
+    border-radius: 12px; padding: 18px; min-height: 240px; max-height: 360px; overflow-y: auto; overflow-wrap: anywhere;
   }
   .log :global(p + p) { margin-top: 6px; }
   .log :global(.tone-ok) { color: var(--ok); }

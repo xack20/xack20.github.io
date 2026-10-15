@@ -1,8 +1,8 @@
 ---
-title: Banking agents that never touch the card system directly
-card: MCP tool servers for banking agents
-summary: KONA's agents reach the card system only through MCP tool servers, most of which I designed and wrote. There are 31 tools in three tiers, an action catalog for rarer jobs, and a screen finder over 156 portal screens. The same pattern now serves Nagad.
-outcome: The agents can read live card data and prepare changes, but every call goes through a tool server that fixes what is possible and which bank it acts for.
+title: "MCP tool servers for the card system"
+card: "MCP tool servers for the card system"
+summary: "KONA's agents reach the card system only through MCP tool servers, and I designed and wrote most of them: 31 tools in three tiers, an action catalog for less common jobs, and a screen finder over 156 portal screens. The same servers are used for Nagad."
+outcome: "Every call goes through a tool server, which limits what the agent can do and fixes which bank it acts for."
 meta: KONA · Agent tooling · 2026
 org: KONA Software Lab
 client: Banks using KONA's card management system, and Nagad
@@ -12,6 +12,7 @@ status: In active development
 order: 2
 featured: false
 group: kona
+category: agents
 published: 2026-10-09
 stack: [Java, Spring Boot, MCP Java SDK, JavaScript, Node.js, MCP TypeScript SDK, Zod, SSE]
 plain: An AI assistant can't be handed the keys to a bank's card system. Instead it gets a fixed set of tools, each of which knows who is asking and what it may do, and any change it prepares stops at a draft or a request that a person decides on.

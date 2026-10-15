@@ -2,6 +2,8 @@
 
 The personal site of Zakaria Hossain Foysal, built with Astro and deployed to GitHub Pages by GitHub Actions.
 
+This is version 2, in the "Blueprint" design: near-black, white and grey, with one blue family for all light. The home page is a React island (the plate scene and the approval sequence); every other page is static HTML.
+
 ## Commands
 
 | Command | What it does |
@@ -24,4 +26,6 @@ The rules live in `scripts/guards/rules.mjs`, with tests in `tests/unit/guards.t
 
 - Case studies: `src/content/work/*.md` (frontmatter schema in `src/content.config.ts`).
 - Everything else on the pages: `src/data/*.ts`.
-- Lab logic: `src/lib/approval/ledger.ts`. Hero animation: `src/lib/constellation/sim.ts` and `src/scripts/constellation.ts`.
+- Lab logic: `src/lib/approval/ledger.ts` and its siblings in `src/lib/`.
+- Home page island: `src/islands/` (React), with its pure maths in `src/lib/scene/` and `src/lib/signal/` and its styles in `src/styles/scene/`.
+- The sky behind every page: `src/scripts/sky.ts` and `src/scripts/sky/`, placed by `src/lib/sky/placement.ts`.

@@ -1,8 +1,8 @@
 ---
-title: Guardrails for banking agents, and the evals that check them
-card: Evals and guardrails for banking agents
-summary: Checks on what goes into a banking agent and what comes out, limits on how it uses tools, and a check for numbers it never looked up. I wrote the eval suite that tests all of it, 57 suites and 2,265 cases.
-outcome: The rules that matter run in code, not in the prompt, and a 2,265-case eval suite shows whether they still hold.
+title: "Guardrails and evals for the agents"
+card: "Guardrails and evals for the agents"
+summary: "Input screening, PII redaction, limits on tool calls, and a check for numbers the model states without looking them up. I also wrote the eval suite that tests them: 57 suites and 2,265 cases."
+outcome: "The safety rules are enforced in code, and the 2,265-case eval suite is run to check that they still hold."
 meta: KONA · Agent safety · 2026
 org: KONA Software Lab
 client: Banks using KONA's card management system, and Nagad
@@ -12,6 +12,7 @@ status: In active development
 order: 3
 featured: false
 group: kona
+category: agents
 published: 2026-10-09
 stack: [Python, FastAPI, LangGraph, Java, Spring WebFlux, Qwen, LiteLLM, YAML, pytest, Postman]
 plain: An assistant that works with bank data has to turn away the wrong questions, keep personal details out of its answers, and never invent a figure. I built the checks that make it behave that way, and a large set of test questions that shows whether they still work.

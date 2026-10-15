@@ -1,27 +1,35 @@
+/* Blueprint: near-black, white and greys, and one hue family (blue into cyan) for all light. */
 :root {
-  --bg: #070a14;
-  --bg-raised: #0a1020;
-  --bg-glow: #101a33;
-  --surface: #0d1324;
-  --ink: #f3f1ea;
-  --ink-2: rgba(243, 241, 234, 0.84);
-  --muted: rgba(243, 241, 234, 0.7);
-  --gold: #e8c478;
-  --gold-2: #d9a94f;
-  --gold-hi: #fff2cf;
-  --gold-deep: #b8873a;
-  --on-gold: #1a1205;
-  --line: rgba(232, 196, 120, 0.18);
-  --line-strong: rgba(232, 196, 120, 0.45);
-  --card: rgba(255, 255, 255, 0.035);
-  --ok: #5ee6a0;
-  --bad: #ff7a6b;
-  --font-display: 'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'Inter Variable', Inter, system-ui, sans-serif;
+  --bg: #050506;
+  --bg-raised: #0a0b0f;
+  --bg-glow: #0b1630;
+  --surface: #0c0d12;
+  --ink: #f4f5f7;
+  --ink-2: #c9cdd6;
+  --muted: #8b93a3;
+  --accent: #7fd4ff;
+  --accent-2: #4c9dff;
+  --accent-hi: #e6f4ff;
+  --accent-deep: #2f6bff;
+  --on-accent: #04101f;
+  --line: rgb(255 255 255 / 0.1);
+  --line-strong: rgb(127 212 255 / 0.42);
+  --card: rgb(255 255 255 / 0.04);
+  --ok: #7fd4ff;
+  /* The one colour outside the family, used only for a rejected or failed result in the lab demos. */
+  --bad: #ff9a8f;
+  /* v1 names, kept so component styles written against them still resolve. */
+  --gold: var(--accent);
+  --gold-2: var(--accent-2);
+  --gold-hi: var(--accent-hi);
+  --gold-deep: var(--accent-deep);
+  --on-gold: var(--on-accent);
+  --font-display: 'Inter Tight Variable', 'Geist Variable', system-ui, sans-serif;
+  --font-body: 'Geist Variable', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --max: 1180px;
   --gutter: clamp(16px, 4vw, 40px);
-  --nav-h: 68px;
+  --nav-h: 64px;
   color-scheme: dark;
 }

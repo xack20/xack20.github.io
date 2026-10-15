@@ -11,23 +11,19 @@ const GROUPS = [
 const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const groups = GROUPS.map((g) => ({ ...g, items: work.filter((entry) => entry.data.group === g.key) }));
 ---
-<BaseLayout breadcrumbs={[{ name: 'Work', path: '/work/' }]} title="Work" description="Case studies: agentic AI for banks and a mobile wallet, MCP tool servers, evals, self-hosted LLMs, fund tracing, reporting, a Fabric commerce platform, and personal and open-source work.">
+<BaseLayout breadcrumbs={[{ name: 'Work', path: '/work/' }]} title="Work" description="Eleven case studies: AI agents for banks and a mobile wallet, MCP tool servers, evals, self-hosted LLMs, fund tracing, reporting and a Fabric commerce platform.">
   <header class="page-head">
-    <p class="label">Work</p>
-    <h1 class="page-title">Case <b>studies</b>.</h1>
-    <p class="intro">
-      Systems I've built or built large parts of, explained in plain language: what the problem was, the decisions that mattered,
-      and what made them hard. Smaller work is on the <a class="inline" href="/projects/">projects</a> page.
-    </p>
+    <h1 class="page-title">Work</h1>
+    <p class="intro">Eleven projects, most of them from KONA Software Lab.</p>
   </header>
   {groups.map((g) => (
     <section class="section section-tight" aria-labelledby={`${g.key}-h`}>
       <h2 class="sub-h" id={`${g.key}-h`}>{g.title}</h2>
-      <div class="work-grid">{g.items.map((entry) => <WorkCard entry={entry} big={entry.data.featured} />)}</div>
+      <div class="work-grid">{g.items.map((entry) => <WorkCard entry={entry} />)}</div>
     </section>
   ))}
 </BaseLayout>
 
 <style>
-  .inline { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+  .work-grid { margin-top: 24px; gap: 16px; }
 </style>

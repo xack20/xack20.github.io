@@ -1,7 +1,7 @@
 ---
-title: "A silent failure in whichllm's benchmark scraper"
-card: "A silent failure in whichllm's benchmark scraper"
-summary: whichllm ranks local LLMs partly by a benchmark it scrapes. The site changed format, every fetch failed quietly and rankings ran on a frozen snapshot. I parsed the new stream and made sure a live fetch can only add models.
+title: "whichllm: a fix for the benchmark scraper"
+card: "whichllm: benchmark scraper fix"
+summary: "whichllm ranks local LLMs partly by a benchmark it scrapes. The site changed format, every fetch failed without an error, and rankings ran on an old snapshot. I parsed the new format and made sure a live fetch can only add models."
 outcome: Live scores are back, and the benchmark tier grew to 78 models instead of shrinking to 43.
 meta: Open source · whichllm · Jun 2026
 org: Open source
@@ -11,6 +11,7 @@ status: Merged on 10 June 2026
 order: 11
 featured: false
 group: personal
+category: personal
 published: 2026-10-09
 stack: [Python, httpx, regex, pytest]
 plain: whichllm tells you which open AI model will run best on your own computer, and part of its ranking comes from a public benchmark website. When that website changed how it sends its data, the tool quietly kept using an old copy, so I made it read the new format and made sure fresh data can only add models, never remove them.

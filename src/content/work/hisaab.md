@@ -1,8 +1,8 @@
 ---
-title: "Hisaab: a finance app that keeps your data yours"
-card: "Hisaab: a finance app that keeps your data yours"
-summary: Reads bKash, Nagad and bank SMS, encrypts everything end to end, and runs its AI on the phone.
-outcome: A budget that fills itself in from payment SMS, without your data leaving your devices unless you say so.
+title: "Hisaab: a personal finance app"
+card: "Hisaab: personal finance app"
+summary: "Reads bKash, Nagad and bank SMS, encrypts the data end to end, and runs its AI on the phone."
+outcome: "The budget is filled in from payment SMS, and the data stays on your devices unless you choose to sync it."
 meta: Personal · Kotlin Multiplatform · 2026
 org: Personal project
 years: 2026 – now
@@ -10,6 +10,7 @@ role: Solo. Design, code and tests.
 status: In progress, early stage
 order: 10
 group: personal
+category: personal
 published: 2026-10-09
 stack: [Kotlin Multiplatform, Compose Multiplatform, Swift, SQLDelight, SQLCipher, libsodium, Supabase, MediaPipe, Apple Foundation Models]
 plain: Hisaab reads the payment messages you already get from bKash, Nagad, Rocket and your bank, and turns them into a budget without any typing. Everything is encrypted on your phone, and the AI runs on the phone too, unless you choose a cloud model and agree to send masked data.

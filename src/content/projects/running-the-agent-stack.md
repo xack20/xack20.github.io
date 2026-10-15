@@ -1,5 +1,5 @@
 ---
-title: "Making KONA's agent stack easy to run and deploy"
+title: "Running and deploying KONA's agent stack"
 summary: "One command to build, check, start and stop the agent stack on a laptop, a harness for testing logins end to end, a Claude Code skill for the team, and deploy jobs that fail when the old process is still running."
 meta: "KONA · Developer tooling · 2026"
 org: "KONA Software Lab"

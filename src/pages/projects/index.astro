@@ -15,9 +15,8 @@ const groups = GROUPS.map((g) => ({ ...g, items: projects.filter((p) => p.data.g
 ---
 <BaseLayout breadcrumbs={[{ name: 'Projects', path: '/projects/' }]} title="Projects" description="Smaller projects: KONA tooling and identity, personal apps and AI tools, and open-source fixes.">
   <header class="page-head">
-    <p class="label">Projects</p>
-    <h1 class="page-title">Smaller things I've <b>built</b>.</h1>
-    <p class="intro">The <a class="inline" href="/work/">case studies</a> go deep on the larger systems. This page covers the rest.</p>
+    <h1 class="page-title">Projects</h1>
+    <p class="intro">Smaller things: internal tooling, side projects and open-source fixes.</p>
   </header>
   {groups.map((g) => (
     <section class="section section-tight" aria-labelledby={`${g.key}-h`}>
@@ -29,8 +28,7 @@ const groups = GROUPS.map((g) => ({ ...g, items: projects.filter((p) => p.data.g
 </BaseLayout>
 
 <style>
-  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
-  .inline { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
   @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 640px) { .grid { grid-template-columns: minmax(0, 1fr); } }
 </style>

@@ -25,6 +25,8 @@ test.describe('search metadata', () => {
   test.skip(({ isMobile }) => isMobile, 'metadata is the same on every viewport');
 
   test('every page has a unique title, a good-length description and complete social tags', async ({ page }) => {
+    // Twenty-three page loads in one test, each starting the WebGL sky.
+    test.setTimeout(120_000);
     const titles = new Set<string>();
     for (const path of PAGES) {
       await page.goto(path);

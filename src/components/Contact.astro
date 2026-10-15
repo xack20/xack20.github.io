@@ -2,8 +2,7 @@
 import { LINKS, SITE } from '../data/site';
 ---
 <section class="contact" id="contact" aria-labelledby="contact-h">
-  <p class="label reveal">Contact</p>
-  <h2 class="reveal" id="contact-h">Building something where <b>trust</b> matters?</h2>
+  <h2 class="reveal" id="contact-h">Contact</h2>
   <p class="sub reveal">Happy to talk about agents, MCP or payment systems.</p>
   <div class="links reveal">
     <a class="btn btn-primary" href={LINKS.email}>Email me</a>
@@ -16,15 +15,8 @@ import { LINKS, SITE } from '../data/site';
 
 <style>
   .contact { text-align: center; padding: clamp(100px, 14vw, 140px) var(--gutter) clamp(80px, 12vw, 120px); }
-  h2 { font: 300 clamp(40px, 6vw, 80px)/1.02 var(--font-display); letter-spacing: -2px; margin: 16px auto 18px; max-width: 900px; text-wrap: balance; }
-  h2 b {
-    font-weight: 600; color: transparent; -webkit-background-clip: text; background-clip: text;
-    background-image: linear-gradient(180deg, var(--gold-hi), var(--gold) 60%, var(--gold-deep));
-  }
-  .sub { color: var(--muted); font-size: 18px; margin-bottom: 28px; }
+  h2 { font: 540 clamp(32px, 4.2vw, 52px)/1.06 var(--font-display); letter-spacing: -0.03em; margin: 0 auto 14px; }
+  .sub { color: var(--ink-2); font-size: 18px; margin-bottom: 28px; }
   .links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .email { margin-top: 20px; color: var(--muted); font: 500 14px var(--font-mono); }
-  @media (forced-colors: active) {
-    h2 b { color: CanvasText; background: none; }
-  }
+  .email { margin-top: 20px; color: var(--muted); font: 500 13px var(--font-mono); }
 </style>

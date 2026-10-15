@@ -29,7 +29,7 @@ export const ROLES: readonly Role[] = [
         href: '/work/mcp-tool-servers/',
       },
       {
-        text: "Made writes safe by design. The agent can only save drafts or act as the maker in the bank's maker-checker flow. Writes with no approval step of their own wait for a person in an approval ledger I built on Spring WebFlux and PostgreSQL, with single-use tokens bound to the exact change.",
+        text: "Writes need a person's approval. The agent can only save drafts or act as the maker in the bank's maker-checker flow. Writes with no approval step of their own wait for a person in an approval ledger I built on Spring WebFlux and PostgreSQL, with single-use tokens bound to the exact change.",
         href: '/lab/',
       },
       {
@@ -65,7 +65,7 @@ export const ROLES: readonly Role[] = [
         href: '/projects/kona-identity-provider/',
       },
       {
-        text: 'Made the stack easy to run and ship: a one-command local runner for the services, an auth test harness, and deploy jobs that fail instead of reporting success while the old version is still serving.',
+        text: 'Built tooling to run and deploy the stack: a one-command local runner for the services, an auth test harness, and deploy jobs that fail if the old version is still serving.',
         href: '/projects/running-the-agent-stack/',
       },
       {
@@ -90,7 +90,7 @@ export const ROLES: readonly Role[] = [
         href: '/work/ncp-fabric/',
       },
       {
-        text: 'Made it hold up under failure and load. Failed RabbitMQ publishes go to a retry table and replay once the broker is back, and a Redis-backed Socket.IO adapter lets several gateway instances run behind a load balancer.',
+        text: 'Handled broker outages and scaling: failed RabbitMQ publishes go to a retry table and replay once the broker is back, and a Redis-backed Socket.IO adapter lets several gateway instances run behind a load balancer.',
       },
       { text: 'Built the React signing portal, where users generate BIP39/secp256r1 HD-wallet keys and sign transactions on their own device.' },
       {

@@ -1,8 +1,8 @@
 ---
-title: "Reading Bangladeshi NID cards: OCR first, the expensive model only where it's unsure"
-card: Reading Bangladeshi NID cards with OCR and an LLM
-summary: Reads KYC fields from Bangladeshi NID cards in Bangla and English. Cloud Vision reads the text, a cheap Gemini model parses it, and a stronger one re-reads only the fields the rule checks doubt, from crops of the photo.
-outcome: Double-sided cards that need a second look dropped from about 54 s to 32 s, and a clean card needs a single model call.
+title: "NID card OCR for KYC"
+card: "NID card OCR for KYC"
+summary: "Reads KYC fields from Bangladeshi NID cards in Bangla and English. Cloud Vision reads the text, a small Gemini model parses it, and a larger one re-reads only the fields the rule checks flag, from crops of the photo."
+outcome: "Double-sided cards that need a second pass went from about 54 s to 32 s. A clean card needs one model call."
 meta: Personal · OCR + LLMs · 2026
 org: Personal project
 years: "2026"
@@ -11,6 +11,7 @@ status: Working REST API and command-line tools
 order: 9
 featured: false
 group: personal
+category: personal
 published: 2026-10-09
 stack: [TypeScript, Express, Google Cloud Vision, Gemini, Zod]
 plain: To open an account, a bank or wallet needs the details printed on your national ID card, such as the number, your name, date of birth and address. This service reads them from a photo, in Bangla and English, and only pays for the expensive AI model on the parts of the card it isn't sure about.
