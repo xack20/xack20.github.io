@@ -64,7 +64,7 @@ The leaderboard now labels variants, such as "Qwen3 14B (Reasoning)" or "gpt-oss
 
 The site changed format once and can change again. The scraper tries the RSC stream first and the old data blob second, and only raises the extraction error when neither gives any records.
 
-### Tests that never touch the network
+### Offline tests
 
 I added a test file that runs fully offline, using a mock HTTP transport in httpx, so it never calls the real site. It covers name canonicalisation, RSC decoding, the boundary that stops one record leaking into the next, mapping to Hugging Face IDs, the coverage guarantee and the failure path. The rest of the suite still passes.
 
@@ -80,6 +80,6 @@ The other fix was closed, and mine was merged on 10 June 2026.
 
 A failure that looked like success. Nothing crashed. The error was caught, a warning went to the log, and the tool printed rankings from the snapshot as usual. The rankings were stale on every run, and nothing on screen said so.
 
-A stream, not a document. The decoded payload is a flat stream of fragments, not one JSON document, so you can't parse it and walk the tree. I match records with a regex instead, and the risk is a match that starts at one model's name and runs on into the next model's score when the first record has no score of its own. The pattern refuses to pass another name field between a name and its score, so a match can't cross into the next record. A test pins that boundary.
+The decoded payload is a flat stream of fragments, not one JSON document, so you can't parse it and walk the tree. I match records with a regex instead, and the risk is a match that starts at one model's name and runs on into the next model's score when the first record has no score of its own. The pattern refuses to pass another name field between a name and its score, so a match can't cross into the next record. A test pins that boundary.
 
 Name variants. The same model shows up under several display names: with or without a reasoning label, with an effort level in brackets, with hyphens or spaces. A table keyed on exact names only sees a fraction of them. Canonicalisation fixes this in one place, so the table didn't need a row for every spelling.

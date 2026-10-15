@@ -64,7 +64,7 @@ Banks already run changes through maker-checker: one person prepares a change an
 
 Maker requests go through the bank's own checker. Writes that have no approval step of their own go to an approval ledger I built in the governance service, on Spring WebFlux and PostgreSQL. When a person approves, the ledger issues a single-use token bound to a hash of the payload. The write happens only when that token is redeemed, so a token can't be replayed, and a change edited after approval no longer matches. You can [try the mechanism in the Lab](/lab/).
 
-### Identity comes from the request, not the model
+### The bank and user come from the request
 
 The bank and the user come from the request headers, never from the model's arguments. If the model could choose which bank it acts for, a prompt injection could choose too.
 

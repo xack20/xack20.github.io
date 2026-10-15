@@ -57,19 +57,19 @@ The result is checked against a Zod schema and carries timing for each step, the
 
 ## Key decisions
 
-### Pay for the strong model only where it's needed
+### The strong model only for doubtful fields
 
 Most fields on a clean card are easy, and the strong model costs the most. So the cheap model parses everything, and the strong model only sees fields that failed a check, with a cap on how many one card can send. A clean card needs a single model call.
 
-### Code decides what's doubtful, not the model
+### Rule checks decide what is doubtful
 
 The parser can ask for a second look, but it can't wave a field through. A field passes only when the parser rates it high, doesn't ask for review, every rule check agrees, and Cloud Vision's confidence on the lines it came from is above a set threshold. A field that should be on the side you sent but came back empty is treated as a capture problem, such as flash or blur, and goes to verify. A field the card type doesn't have is marked absent.
 
-### Crops, not just the whole card
+### Crops of the doubtful fields
 
 Because Cloud Vision gives every line a position, each doubtful field can be cut out of the photo. The strong model still gets the full side for context, but each field it has to check also arrives as a crop of that spot, labelled with the reason it was flagged.
 
-### The second look can't undo the first
+### The second look only changes the fields it was shown
 
 The strong model returns a full result, but I only take its values for the fields it was asked to check. Everything that passed keeps the cheap model's value. Otherwise the strong model could blank out a field that was read clearly and never shown to it up close.
 

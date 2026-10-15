@@ -55,13 +55,13 @@ A lot of the work was in the words the model reads. In the Nagad profile I wrote
 
 Instead of forking the agent for Nagad, I wrote a design for splitting one agent platform into per-product profiles, then built it. The system prompt became a shared base plus a profile per product, I wrote configuration per product and environment, and I made the governance service build per product. The bank operator assistant and KON-AI now ship from the same code.
 
-### The app tells us who it is
+### The app sends its platform and version
 
 I defined the app-header contract with the app team: the platform, the app version, the language and the location. I forwarded those headers from orchestration and governance down to the tool servers. A value that doesn't check out is dropped, never replaced with a default, because answering for the wrong app build shows a screen that has moved.
 
 The screen finder reads the platform (Android or iOS) and the app version from those headers, never from the model. Each release has its own screen index. A newer release falls back to the nearest older index and says so, and a release older than every index gets an "update the app" message. Without the headers, the tool refuses to answer.
 
-### PIN safety lives in code
+### PIN safety rules in code
 
 Rules about PINs are too important to leave in a prompt. If someone says they forgot, lost or blocked their PIN, the change-PIN screen is suppressed. If someone asks *for* a PIN or OTP, they get safety advice and no screen at all. And when a question is about something the app guide doesn't cover, that answer wins over any partial match.
 

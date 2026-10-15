@@ -54,15 +54,15 @@ I also worked on KONA-SCAN, the platform's block explorer, with a Go and Gin bac
 
 ## Key decisions
 
-### Sign on the user's device
+### Signing on the user's device
 
 The gateway never sees a user's private key. It receives a signed transaction and handles the rest of the Fabric flow, so custody stays with the user.
 
-### Don't lose messages when the broker goes down
+### Retrying messages after a broker outage
 
 If a RabbitMQ publish fails, the message goes into a retry table and replays once the broker is back. Pending messages are replayed for every tenant, and a row is marked done once its message has gone out, so it isn't sent again. A broker outage delays messages instead of dropping them.
 
-### Run several gateways at once
+### Several gateway instances
 
 A Redis-backed Socket.IO adapter lets several gateway instances run behind a load balancer, so the gateway can scale out without losing real-time events. Events pass through Redis, so one raised on one instance still reaches a client connected to another.
 

@@ -20,7 +20,7 @@ LMCanvas is a desktop app that drives the Claude Code installed on your machine.
 
 ## What I added
 
-### Context you can see
+### Showing the context size
 
 Long Claude conversations used to run blind. Now every Claude node shows its own size and the total from the root down to it, measured by Claude Code at the end of each run. A bar under the node turns amber and then red as the model's context window fills. Until a node has been measured, it shows an estimate, marked as one.
 

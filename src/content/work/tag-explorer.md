@@ -51,7 +51,7 @@ The explorer is a React app with React Router 6 and four pages (dashboard, trans
 
 ## Key decisions
 
-### Contribution counts payments, not every hop
+### Counting payments rather than hops
 
 A balance can pass through many hands. I wrote the design for scoring how much each person contributed to it: the score measures how many later payments wouldn't have happened if that person hadn't spent the money. It uses the tag's payment depth: the distance to the current owner, counting payment hops only. Remittances, refunds, donations and change don't count as contribution. If someone appears in a tag more than once, each appearance counts separately, with its own depth. Recalculation is atomic, month-aware and runs in the background, with an endpoint to check its status.
 

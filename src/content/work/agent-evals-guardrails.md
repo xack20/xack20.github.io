@@ -69,13 +69,13 @@ Around the stack:
 
 ## Key decisions
 
-### Safety rules live in code, not in prompts
+### Safety rules are enforced in code
 
 A prompt rule is a request to a model. Redaction, the lookup check, the tool-call cap and KON-AI's PIN rules run in code, around the model, so they hold even when it ignores its instructions.
 
-### Measure before tuning the prompt
+### Evals before prompt changes
 
-Before the lookup check, we tried taking the real numbers out of the prompt's examples. That moved the errors around without lowering them. A rule whose failure puts a wrong fact in front of a person needs a check after the answer, not better wording. The guard changes were measured on test questions before and after, and the corpus test's rule is to add a question before changing a weight.
+Before the lookup check, we tried taking the real numbers out of the prompt's examples. That moved the errors around without lowering them. When a rule failing would show a person a wrong fact, I add a check after the answer rather than rewording the prompt. The guard changes were measured on test questions before and after, and the corpus test's rule is to add a question before changing a weight.
 
 ### A separate guard per product
 
@@ -87,7 +87,7 @@ If the judge doesn't answer in time, the question is stopped. If the language ch
 
 ## What made it hard
 
-Answers vary. The model isn't fully deterministic, even at its lowest temperature, so the suite leans on which tools were called and on rubrics more than exact wording. One failed chat case is a reason to rerun it, not a verdict.
+Answers vary. The model isn't fully deterministic, even at its lowest temperature, so the suite leans on which tools were called and on rubrics more than exact wording. A single failed chat case is rerun before it counts as a failure.
 
 The model is shared. Everyone on the dev environment uses the same rate-limited key, so a full run goes in order, chat first and screening after, never both at once. A screening timeout under load means rerun, not fail.
 

@@ -63,7 +63,7 @@ The database is encrypted with SQLCipher. Keys come from libsodium (Argon2id for
 
 One provider interface hides where the model runs. On Android it's Gemma through MediaPipe. On iOS it's Apple's Foundation Models through a Swift bridge, which needs no API key. A cloud model is used instead only if you've set one up or Apple's model isn't available. If you want a stronger model you can bring your own Claude, Gemini or OpenAI key. Personal data is masked before anything leaves the phone, and only after you've agreed to it.
 
-### The relay can't read what it carries
+### The relay only sees encrypted data
 
 The Mac companion needs a server in the middle, so I made that server blind. The Mac and the phone each derive the relay key from your recovery phrase, and the Mac never stores the phrase. The server only ever holds a nonce and ciphertext, each row is readable by its owner only, and the phone deletes each row once it has taken it in.
 

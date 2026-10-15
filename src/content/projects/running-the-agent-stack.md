@@ -30,13 +30,13 @@ The agent stack behind KONA's card management assistant, with the portal around 
 
 The generator writes a small run folder into each service, laid out the same way as on the dev server, and it can be run again safely. Doctor checks the toolchain, the built artifact, the secrets, the ports and the services a process depends on, and it refuses to start anything until they're all in place.
 
-### Config you can read, with no secrets in it
+### Readable config without secrets
 
 The runner converts each Java service's properties files to YAML. It doesn't trust its own conversion: it flattens the YAML back out and compares every key and value with the original. If a single one differs, it keeps the properties file, because a config file that is almost right is worse than one left alone.
 
 It also moves secrets out of the config. Any setting whose name ends in password, secret, token, API key, private key or credential gets an environment variable in place of its value. The real values live in a secrets file that is never committed and loads before the tier's settings, so no config file in git holds a credential. Matching only the end of the name was a deliberate choice: matching anywhere in the name caught a cron schedule with "token" in its name, and moving that out would have left the service with no schedule and no clue why.
 
-### A true local tier
+### A local tier
 
 Before, running "on dev" from a laptop could quietly talk to the dev server and never exercise the code on the laptop at all. The new local tier fixes that. The services talk to each other on 127.0.0.1, while the data still comes from dev, so you get an end-to-end test without a database of your own.
 
@@ -44,6 +44,6 @@ Before, running "on dev" from a laptop could quietly talk to the dev server and 
 
 The stack's gateway checks every request's token against a published key set. The harness serves that key set locally from a throwaway signing key that is trusted only on that machine. The first version made a new key on every start, which silently killed every token already minted, so now it reuses the key and makes one only when none exists. The minting script signs a token for any user and role. The chat console drives the agent from a browser: it keeps threads in local storage, shows the agent's steps as they happen, and sends the conversation's ID back on each message so the agent keeps its context.
 
-### Deploys that tell the truth
+### Deploys that fail if the old version is still running
 
 A deploy could show green while the old version kept serving. Each rewritten job now notes which process is running before the deploy, stops it, and waits until it is really gone. If it isn't, the build fails. It also frees the service's ports from any stray copy and fails if they stay taken. The health check passes only when the service answers and the process answering is the new one.

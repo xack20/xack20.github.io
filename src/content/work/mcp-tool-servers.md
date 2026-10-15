@@ -61,7 +61,7 @@ The Java servers offer both MCP transports, SSE and streamable HTTP, from one to
 
 The model we serve gets slower and chooses worse as its tool list grows. So the actions operators use most get dedicated tools, and the long tail sits behind the catalog. The model sees a short list and can still reach everything.
 
-### Generate the screen index, never write it by hand
+### A generated screen index
 
 Nothing in the index is typed by a person, so it can't describe a screen that isn't there. An agent that invents a menu path costs an operator more time than one that says it doesn't know. The path comes from the menu service rather than the routes, because route names aren't anything an operator can click. What the source can't know, such as why a rule exists, goes in a small set of hand-written notes. Notes stay labelled all the way into the answer, so the agent can pass one on without stating it as certain fact.
 
