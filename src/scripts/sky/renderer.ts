@@ -1,5 +1,13 @@
+import { isSoftwareRenderer } from '../../lib/sky/software';
 import type { CanvasSize } from './loop';
 import { COMPOSITE_SHADER, DENSITY_SHADER, VERTEX_SHADER } from './shaders';
+
+/** The renderer's real name where the browser shares it, otherwise its generic one. */
+const rendererName = (gl: WebGLRenderingContext): string => {
+  const info = gl.getExtension('WEBGL_debug_renderer_info');
+  const name: unknown = gl.getParameter(info ? info.UNMASKED_RENDERER_WEBGL : gl.RENDERER);
+  return typeof name === 'string' ? name : '';
+};
 
 /** Halftone pitch in CSS pixels. */
 const CELL_PX = 6;
@@ -69,6 +77,10 @@ export const createNebula = (canvas: HTMLCanvasElement): Nebula | null => {
     failIfMajorPerformanceCaveat: true,
   });
   if (!gl) return null;
+  if (isSoftwareRenderer(rendererName(gl))) {
+    gl.getExtension('WEBGL_lose_context')?.loseContext();
+    return null;
+  }
 
   const density = link(gl, DENSITY_SHADER, CLOUD_UNIFORMS);
   const composite = link(gl, COMPOSITE_SHADER, COMPOSITE_UNIFORMS);
